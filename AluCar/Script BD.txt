@@ -1,0 +1,64 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 07-Abr-2022 às 18:37
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 8.1.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Banco de dados: `alucar`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `locatario`
+--
+
+CREATE TABLE `locatario` (
+  `idLocatario` int(11) NOT NULL,
+  `nome` varchar(200) NOT NULL,
+  `cpf` varchar(30) NOT NULL,
+  `dataNasc` date NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `senha` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `locatario`
+--
+
+INSERT INTO `locatario` (`idLocatario`, `nome`, `cpf`, `dataNasc`, `usuario`, `senha`) VALUES
+(5, 'matheus', '56154887949', '1999-11-20', 'matheus', '45339359513f09155110f63f7ca91c3e'),
+(6, 'Lucas Silva', '10463471954', '1998-11-20', 'lucas', '6b99e8f2edf735a252ff4952afdd5e33'),
+(7, 'Lincoln Mesatto', '38802163987', '1997-02-14', 'lincoln', 'aa45997477591e27601c436bcb228d6f'),
+(8, 'teste', '12345678910', '2022-03-31', 'teste', '698dc19d489c4e4db73e28a713eab07b');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `locatario`
+--
+ALTER TABLE `locatario`
+  ADD PRIMARY KEY (`idLocatario`),
+  ADD UNIQUE KEY `Cpf` (`cpf`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `locatario`
+--
+ALTER TABLE `locatario`
+  MODIFY `idLocatario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
