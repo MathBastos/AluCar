@@ -20,7 +20,7 @@ session_start();
                 <div class="column is-4 is-offset-4">
                     <h3 class="title has-text-grey">AluCar</h3>
                     <h3 class="title has-text-grey">Aluguel de Automóveis</h3>
-                    <h3 class="title has-text-grey">Insira Usuário e Senha</h3>
+                    <h3 class="title has-text-grey">Insira CNPJ e Senha</h3>
                     <?php
                     if(isset($_SESSION['nao_autenticado'])){
                     ?>
@@ -32,10 +32,10 @@ session_start();
                     unset($_SESSION['nao_autenticado']);
                     ?>
                     <div class="box">
-                        <form action="login.php" method="POST">
+                        <form action="login_locadora.php" method="POST">
                             <div class="field">
                                 <div class="control">
-                                    <input name="usuario" type="text" class="input is-large" placeholder="Usuário" autofocus="">
+                                    <input name="cnpj" type="text" class="input is-large" placeholder="CNPJ" autofocus="">
                                 </div>
                             </div>
                             <div class="field">
@@ -45,10 +45,10 @@ session_start();
                             </div>
                             <button type="submit" class="button is-block is-link is-large is-fullwidth">Entrar</button>
                             <div class="field">
-                                <a href="cadastro_locatario.php">Cadastrar</a>
+                                <a href="cadastro_locadora.php">Cadastrar</a>
                             </div>
                             <div class="field">
-                                <a href="logar_locadora.php">Logar como Locadora</a>
+                                <a href="index.php">Logar como Usuario</a>
                             </div>
                         </form>
                     </div>
