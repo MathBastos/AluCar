@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Abr-2022 às 20:57
+-- Tempo de geração: 21-Abr-2022 às 22:08
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.4
 
@@ -69,6 +69,20 @@ INSERT INTO `locatario` (`idLocatario`, `nome`, `sobrenome`, `cpf`, `celular`, `
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `idReserva` int(11) NOT NULL,
+  `idLocatario` int(11) NOT NULL,
+  `idVeiculo` int(11) NOT NULL,
+  `dataReserva_inicial` date NOT NULL,
+  `dataReserva_final` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `veiculo`
 --
 
@@ -85,7 +99,7 @@ CREATE TABLE `veiculo` (
   `cor` varchar(30) NOT NULL,
   `motor` varchar(30) NOT NULL,
   `portas` int(11) NOT NULL,
-  `qtdPassageiros` varchar(15) NOT NULL,
+  `qtdPassageiros` int(11) NOT NULL,
   `arCondicionado` varchar(30) NOT NULL,
   `locadora` varchar(100) NOT NULL,
   `valorHora` double NOT NULL,
@@ -108,6 +122,14 @@ ALTER TABLE `locadora`
 --
 ALTER TABLE `locatario`
   ADD PRIMARY KEY (`idLocatario`);
+
+--
+-- Índices para tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`idReserva`),
+  ADD KEY `fk_locatario` (`idLocatario`),
+  ADD KEY `fk_veiculo` (`idVeiculo`);
 
 --
 -- Índices para tabela `veiculo`
@@ -133,6 +155,12 @@ ALTER TABLE `locatario`
   MODIFY `idLocatario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de tabela `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `veiculo`
 --
 ALTER TABLE `veiculo`
@@ -141,6 +169,13 @@ ALTER TABLE `veiculo`
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `fk_locatario` FOREIGN KEY (`idLocatario`) REFERENCES `locatario` (`idLocatario`),
+  ADD CONSTRAINT `fk_veiculo` FOREIGN KEY (`idVeiculo`) REFERENCES `veiculo` (`idVeiculo`);
 
 --
 -- Limitadores para a tabela `veiculo`
