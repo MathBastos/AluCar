@@ -14,7 +14,7 @@ align-content: center;
 }
 
 .card{
-height: 370px;
+height: 425px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -31,6 +31,14 @@ background-color: rgba(0,0,0,0.5) !important;
 color: white;
 }
 
+.card-text h3{
+    color: white;
+    text-align: center;
+}
+
+.card-body{
+    text-align: center;
+}
 
 .input-group-prepend span{
 width: 50px;
@@ -45,13 +53,26 @@ box-shadow: 0 0 0 0 !important;
 
 }
 
-.login_btn{
+.btn{
 color: black;
 background-color: #FFC312;
-width: 100px;
+width: 150px;
+height: 50px;
 }
 
-.login_btn:hover{
+.btn:hover{
+color: black;
+background-color: white;
+}
+
+.sair_btn{
+color: black;
+background-color: #d11507;
+width: 150px;
+height: 50px;
+}
+
+.sair_btn:hover{
 color: black;
 background-color: white;
 }

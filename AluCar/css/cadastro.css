@@ -14,11 +14,11 @@ align-content: center;
 }
 
 .card{
-height: 370px;
 margin-top: auto;
 margin-bottom: auto;
-width: 400px;
+width: 750px;
 background-color: rgba(0,0,0,0.5) !important;
+color: white;
 }
 
 .card-tittle h3{
@@ -31,6 +31,9 @@ background-color: rgba(0,0,0,0.5) !important;
 color: white;
 }
 
+.card-body h3 {
+  text-align: center;
+}
 
 .input-group-prepend span{
 width: 50px;
@@ -45,13 +48,15 @@ box-shadow: 0 0 0 0 !important;
 
 }
 
-.login_btn{
+.cadastrar_btn{
+margin-top: 20px;
+margin-left: 10px;
 color: black;
 background-color: #FFC312;
 width: 100px;
 }
 
-.login_btn:hover{
+.cadastrar_btn:hover{
 color: black;
 background-color: white;
 }
@@ -62,4 +67,16 @@ color: white;
 
 .links a{
 margin-left: 4px;
+}
+
+.campos {
+margin-top: 20px;
+}
+
+.inv{
+  visibility: hidden;
+}
+
+#camposObrigatorios{
+  color: #d11507;
 }
