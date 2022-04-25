@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Abr-2022 às 18:37
+-- Tempo de geração: 25-Abr-2022 às 22:24
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.4
 
@@ -18,14 +18,51 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `locadora`
+--
+
+CREATE TABLE `locadora` (
+  `idLocadora` int(11) NOT NULL,
+  `nomeFantasia` varchar(100) NOT NULL,
+  `cnpj` varchar(50) NOT NULL,
+  `telefone` varchar(50) NOT NULL,
+  `cep` varchar(30) DEFAULT NULL,
+  `logradouro` varchar(100) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `estado` varchar(30) DEFAULT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `senha` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `locadora`
+--
+
+INSERT INTO `locadora` (`idLocadora`, `nomeFantasia`, `cnpj`, `telefone`, `cep`, `logradouro`, `numero`, `estado`, `cidade`, `bairro`, `email`, `senha`) VALUES
+(2, 'locadora teste', '80866488000173', '1) 99728-2279', '81910270', '', 62, '', '', '', 'locadorateste@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `locatario`
 --
 
 CREATE TABLE `locatario` (
   `idLocatario` int(11) NOT NULL,
   `nome` varchar(200) NOT NULL,
+  `sobrenome` varchar(50) NOT NULL,
   `cpf` varchar(30) NOT NULL,
+  `celular` varchar(50) NOT NULL,
   `dataNasc` date NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `cep` varchar(30) DEFAULT NULL,
+  `rua` varchar(100) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `estado` varchar(30) DEFAULT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -34,31 +71,114 @@ CREATE TABLE `locatario` (
 -- Extraindo dados da tabela `locatario`
 --
 
-INSERT INTO `locatario` (`idLocatario`, `nome`, `cpf`, `dataNasc`, `usuario`, `senha`) VALUES
-(5, 'matheus', '56154887949', '1999-11-20', 'matheus', '45339359513f09155110f63f7ca91c3e'),
-(6, 'Lucas Silva', '10463471954', '1998-11-20', 'lucas', '6b99e8f2edf735a252ff4952afdd5e33'),
-(7, 'Lincoln Mesatto', '38802163987', '1997-02-14', 'lincoln', 'aa45997477591e27601c436bcb228d6f'),
-(8, 'teste', '12345678910', '2022-03-31', 'teste', '698dc19d489c4e4db73e28a713eab07b');
+INSERT INTO `locatario` (`idLocatario`, `nome`, `sobrenome`, `cpf`, `celular`, `dataNasc`, `email`, `cep`, `rua`, `numero`, `estado`, `cidade`, `bairro`, `usuario`, `senha`) VALUES
+(10, 'LUCAS', 'PINTO', '10463471954', '41995481172', '2022-03-30', 'luscascas11@gmail.com', '81910270', '', 62, '', '', '', 'lucas', 'dc53fc4f621c80bdc2fa0329a6123708');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `idReserva` int(11) NOT NULL,
+  `idLocatario` int(11) NOT NULL,
+  `idVeiculo` int(11) NOT NULL,
+  `dataReserva_inicial` date NOT NULL,
+  `dataReserva_final` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `veiculo`
+--
+
+CREATE TABLE `veiculo` (
+  `idVeiculo` int(11) NOT NULL,
+  `modelo` varchar(100) NOT NULL,
+  `marca` varchar(50) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `cambio` varchar(30) NOT NULL,
+  `direcao` varchar(30) NOT NULL,
+  `categoria` varchar(30) NOT NULL,
+  `chassi` varchar(30) NOT NULL,
+  `placa` varchar(30) NOT NULL,
+  `cor` varchar(30) NOT NULL,
+  `motor` varchar(30) NOT NULL,
+  `portas` int(11) NOT NULL,
+  `qtdPassageiros` int(11) NOT NULL,
+  `arCondicionado` varchar(30) NOT NULL,
+  `valorHora` varchar(10) NOT NULL,
+  `valorSeguro` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
+-- Índices para tabela `locadora`
+--
+ALTER TABLE `locadora`
+  ADD PRIMARY KEY (`idLocadora`);
+
+--
 -- Índices para tabela `locatario`
 --
 ALTER TABLE `locatario`
-  ADD PRIMARY KEY (`idLocatario`),
-  ADD UNIQUE KEY `Cpf` (`cpf`),
-  ADD UNIQUE KEY `usuario` (`usuario`);
+  ADD PRIMARY KEY (`idLocatario`);
+
+--
+-- Índices para tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`idReserva`),
+  ADD KEY `fk_locatario` (`idLocatario`),
+  ADD KEY `fk_veiculo` (`idVeiculo`);
+
+--
+-- Índices para tabela `veiculo`
+--
+ALTER TABLE `veiculo`
+  ADD PRIMARY KEY (`idVeiculo`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
+-- AUTO_INCREMENT de tabela `locadora`
+--
+ALTER TABLE `locadora`
+  MODIFY `idLocadora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `locatario`
 --
 ALTER TABLE `locatario`
-  MODIFY `idLocatario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idLocatario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `veiculo`
+--
+ALTER TABLE `veiculo`
+  MODIFY `idVeiculo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `fk_locatario` FOREIGN KEY (`idLocatario`) REFERENCES `locatario` (`idLocatario`),
+  ADD CONSTRAINT `fk_veiculo` FOREIGN KEY (`idVeiculo`) REFERENCES `veiculo` (`idVeiculo`);
 COMMIT;

@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label campos" for="categoria">Categoria <h11>*</h11></label>  
                         <div class="col-md-2">
-                            <select class='form-control input-md campos' name="caterogia" id="caterogia">
+                            <select class='form-control input-md campos' name="categoria" id="categoria">
                                 <option value=""></option>
                                 <option value="esportivo">Esportivo</option>
                                 <option value="hatch">Hatch</option>
@@ -106,13 +106,13 @@
                         <div class="col-md-2">
                             <input id="portas" name="portas" placeholder="" class="form-control input-md campos" required="" type="text">
                         </div>
-                        <label class="col-md-2 control-label campos" for="passageiros">Passageiros <h11>*</h11></label>  
+                        <label class="col-md-2 control-label campos" for="qtdPassageiros">Passageiros <h11>*</h11></label>  
                         <div class="col-md-2">
-                            <input id="passageiros" name="passageiros" placeholder="" class="form-control input-md campos" required="" type="text">
+                            <input id="qtdPassageiros" name="qtdPassageiros" placeholder="" class="form-control input-md campos" required="" type="text">
                         </div>
-                        <label class="col-md-2 control-label campos" for="arCond">Ar Cond. <h11>*</h11></label>  
+                        <label class="col-md-2 control-label campos" for="arCondicionado">Ar Cond. <h11>*</h11></label>  
                         <div class="col-md-2">
-                            <select class='form-control input-md campos' name="arCond" id="arCond">
+                            <select class='form-control input-md campos' name="arCondicionado" id="arCondicionado">
                                 <option value=""></option>
                                 <option value="s">Sim</option>
                                 <option value="n">Não</option>
@@ -131,15 +131,17 @@
                             <input id="valorSeguro" name="valorSeguro" placeholder="" class="form-control input-md campos" required="" type="text">
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="card-body">
-                <input type="submit" value="Voltar" id="btnVoltar" class="btn voltar_btn">
-                <div class="col-md-8"></div>
-                <input type="submit" value="Cadastrar" id="btnCadastrarVeiculo" class="btn cadastrar_btn">
-			</div>          
+                
+                    </div>
+                    <div class="card-body">
+                        <input type="submit" value="Voltar" id="btnVoltar" class="btn voltar_btn">
+                        <div class="col-md-8"></div>
+                        <input type="submit" value="Cadastrar" id="btnCadastrarVeiculo" class="btn cadastrar_btn">
+                    </div> 
+                </form>        
         </div>
     </div>
 </div>
+<script src="../js/cadastroVeiculo.js"></script>
 </body>
 </html>

@@ -1,4 +1,19 @@
+const cadLocatario = document.getElementById("cadastroLocatario");
 
+cadLocatario.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const dadosForm = new FormData(cadLocatario);
+    dadosForm.append("add", 1);
+    
+    const dados = await fetch("../php/cadastroLocatario.php", {
+        method: "POST",
+        body: dadosForm,
+
+    });
+
+    const resposta = await dados.json();
+    console.log(resposta);
+});
 
 /* CEP Automatico  
     function limpa_formulario_cep() {
