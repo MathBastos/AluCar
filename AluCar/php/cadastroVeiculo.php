@@ -5,7 +5,7 @@ include_once "conexao.php";
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 $query_veiculo = "INSERT INTO veiculo (modelo, marca, ano, cambio, direcao, categoria, chassi, placa, cor, motor, portas, qtdPassageiros, arCondicionado, valorHora, valorSeguro) 
-                    VALUES (:modelo, :marca, :ano, :cambio, :direcao, :categoria, :chassi, :placa, :cor, :motor, :portas, :qtdPassageiros, :arCondicionado, :valorHora :valorSeguro)";
+                    VALUES (:modelo, :marca, :ano, :cambio, :direcao, :categoria, :chassi, :placa, :cor, :motor, :portas, :qtdPassageiros, :arCondicionado, :valorHora, :valorSeguro)";
 
 $cad_veiculo = $conn->prepare($query_veiculo);
 $cad_veiculo->bindParam(':modelo', $dados['modelo']);
