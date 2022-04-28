@@ -2,7 +2,7 @@
 session_start();
 include('conexao.php');
 
-if(empty($_POST['usuario']) || empty($_POST['senha'])){
+if(empty($_POST['cnpj']) || empty($_POST['senha'])){
     header('location: index.php');
     exit();
 }

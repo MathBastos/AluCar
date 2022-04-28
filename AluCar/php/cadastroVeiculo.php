@@ -23,12 +23,20 @@ $cad_veiculo->bindParam(':qtdPassageiros', $dados['qtdPassageiros']);
 $cad_veiculo->bindParam(':arCondicionado', $dados['arCondicionado']);
 $cad_veiculo->bindParam(':valorHora', $dados['valorHora']);
 $cad_veiculo->bindParam(':valorSeguro', $dados['valorSeguro']);
-$cad_veiculo->execute();
 
-if($cad_veiculo->rowCount()){
-    $retorna = ['erro' => false, 'msg' => "Locadora cadastrada com sucesso"];
+
+$sql = "SELECT * FROM veiculo WHERE (placa) = (:placa)";
+$pegaDados = $conn->prepare($sql);
+$pegaDados->bindParam(':placa', $dados['placa']);
+$pegaDados->execute();
+if($pegaDados->rowCount() == 1){
+   $retorna = "Placa já cadastrada em nosso Banco de Dados!";
 }else{
-    $retorna = ['erro' => true, 'msg' => "Erro: Locadora não foi cadastrado!"];
+    $cad_veiculo->execute();
+    if($cad_veiculo->rowCount() == 1){
+        $retorna = "Veículo cadastrado com sucesso!";
+    }else{
+        $retorna = "Não foi possível cadastrar o veículo, verificar os campos";
+    }
 }
-
 echo json_encode($retorna);

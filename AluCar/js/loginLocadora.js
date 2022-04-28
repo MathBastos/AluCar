@@ -12,5 +12,11 @@ loginLocadora.addEventListener("submit", async (e) => {
 
     });
     const resposta = await dados.json();
-    console.log(resposta);
+    
+    if(resposta == "sucesso"){
+        window.location.replace("../html/indexLocadora.html");
+    }
+    else{
+        alert("Oops, tem algo errado! Verifique suas credenciais.");
+    }
 });
