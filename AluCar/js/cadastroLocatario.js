@@ -12,7 +12,11 @@ cadLocatario.addEventListener("submit", async (e) => {
     });
 
     const resposta = await dados.json();
-    console.log(resposta);
+    alert(resposta);
+
+    if (resposta == "Usuário cadastrado com sucesso!"){
+        location.href = 'loginLocatario.html'
+    }
 });
 
 //CEP Automatico

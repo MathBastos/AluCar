@@ -12,7 +12,11 @@ cadLocadora.addEventListener("submit", async (e) => {
     });
 
     const resposta = await dados.json();
-    console.log(resposta);
+    alert(resposta);
+
+    if (resposta == "Locadora cadastrada com sucesso!"){
+        location.href = 'loginLocadora.html'
+    }
 });
 
 function limpa_formulario_cep() {

@@ -61,6 +61,19 @@ color: black;
 background-color: white;
 }
 
+.voltar_btn{
+margin-top: 20px;
+margin-left: 10px;
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.voltar_btn:hover{
+color: black;
+background-color: white;
+}
+
 .links{
 color: white;
 }

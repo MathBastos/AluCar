@@ -13,6 +13,4 @@ cadVeiculo.addEventListener("submit", async (e) => {
 
     const resposta = await dados.json();
     alert(resposta);
-
-    
 });

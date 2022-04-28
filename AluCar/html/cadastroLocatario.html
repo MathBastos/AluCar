@@ -19,7 +19,7 @@
                 <h3>Alucar</h3>
             </div>
 			<div class="card-header">
-				<h3>Cadastro</h3>
+				<h3>Cadastre seu usuário</h3>
 			</div>
             <div class="card-text">
                 <div class="form-group">
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label campos" for="cpf">CPF <h11>*</h11></label>  
                         <div class="col-md-4">
-                            <input id="cpf" name="cpf" placeholder="Apenas números" class="form-control input-md campos" required="" type="text" maxlength="11" pattern="[0-9]+$">
+                            <input id="cpf" name="cpf" placeholder="Apenas números" class="form-control input-md campos" required="" type="text" maxlength="11">
                         </div>
 
                     <!-- Nascimento -->
@@ -60,7 +60,7 @@
                         <div class="col-md-4">
                             <div class="input-group campos">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                <input id="celular" name="celular" class="form-control" placeholder="XX XXXXX-XXXX" required="" type="text" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
+                                <input id="celular" name="celular" class="form-control" placeholder="XX XXXXX-XXXX" required="" type="text" maxlength="13"
                             OnKeyPress="formatar('## #####-####', this)">
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="input-group campos">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input id="email" name="email" class="form-control" placeholder="email@email.com" required="" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+                                <input id="email" name="email" class="form-control" placeholder="email@email.com" required="" type="text">
                             </div>
                         </div>    
                     </div>
@@ -82,7 +82,7 @@
                         <label class="col-md-2 control-label campos" for="CEP">CEP <h11>*</h11></label>
                         
                             <div class="col-md-4">
-                                <input id="cep" name="cep" placeholder="Apenas números" class="form-control input-md campos" required="" value="" type="search" maxlength="8" pattern="[0-9]+$">
+                                <input id="cep" name="cep" placeholder="Apenas números" class="form-control input-md campos" required="" value="" type="search" maxlength="8" >
                             </div>
                             <div class="col-md-4"></div>
                             <div class="col-md-2">
@@ -139,9 +139,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-8"></div>
+                        <a href="loginLocatario.html"><input type="button" value="Voltar" id="btnVoltar" class="btn voltar_btn"></a>
                         <input type="submit" value="Cadastrar" id="btnCadastrarLocatario" class="btn cadastrar_btn">
-                    
                     </div>
                 </form>
         </div>
