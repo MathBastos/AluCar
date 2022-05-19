@@ -19,35 +19,37 @@
         <h3>Alucar</h3>
       </div>
 			<div class="card-header">
-				<h3>Login</h3>
+				<h3>Login Locatario</h3>
 			</div>
 			<div class="card-body">
-				<form>
+				<form id="loginLocatarioForm">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" id = "usuarioLocatario" placeholder="usuario">
+						<input type="text" name="usuario" class="form-control" id = "usuario" placeholder="usuario">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" id = "senhaLocatario" placeholder="senha">
+						<input type="password" name="senha" class="form-control" id="senha" placeholder="senha">
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Entrar" id="btnLoginLocadora" class="btn float-right login_btn">
+						<a href="index.html"><input type="button" value="Voltar" id="btnVoltar" class="btn float-left login_btn"></a>
+						<input type="submit" value="Entrar" id="btnLoginLocatario" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Não possui conta?<a href="#">Cadastre-se</a>
+					Não possui conta?<a href="cadastroLocatario.html">Cadastre-se</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script src="../js/loginLocatario.js"></script>
 </body>
 </html>

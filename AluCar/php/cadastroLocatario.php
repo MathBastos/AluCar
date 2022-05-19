@@ -3,9 +3,11 @@ include_once "conexao.php";
 
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$senha_md5 = md5($dados['senha']);
 
 $query_locatario = "INSERT INTO locatario (nome, sobrenome, cpf, celular, dataNasc, email, cep, rua, numero, estado, cidade, bairro, usuario, senha) 
                     VALUES (:nome, :sobrenome, :cpf, :celular, :dataNasc, :email, :cep, :rua, :numero, :estado, :cidade, :bairro, :usuario, :senha)";
+
 
 $cad_locatario = $conn->prepare($query_locatario);
 $cad_locatario->bindParam(':nome', $dados['nome']);
@@ -21,13 +23,21 @@ $cad_locatario->bindParam(':estado', $dados['estado']);
 $cad_locatario->bindParam(':cidade', $dados['cidade']);
 $cad_locatario->bindParam(':bairro', $dados['bairro']);
 $cad_locatario->bindParam(':usuario', $dados['usuario']);
-$cad_locatario->bindParam(':senha', md5($dados['senha']));
-$cad_locatario->execute();
+$cad_locatario->bindParam(':senha', $senha_md5);
 
-if($cad_locatario->rowCount()){
-    $retorna = ['erro' => false, 'msg' => "Locatário cadastrado com sucesso"];
+
+$sql = "SELECT * FROM locatario WHERE (cpf) = (:cpf)";
+$pegaDados = $conn->prepare($sql);
+$pegaDados->bindParam(':cpf', $dados['cpf']);
+$pegaDados->execute();
+if($pegaDados->rowCount() == 1){
+   $retorna = "CPF já cadastrado em nosso Banco de Dados!";
 }else{
-    $retorna = ['erro' => true, 'msg' => "Erro: Locatário não foi cadastrado!"];
+    $cad_locatario->execute();
+    if($cad_locatario->rowCount() == 1){
+        $retorna = "Usuário cadastrado com sucesso!";
+    }else{
+        $retorna = "Não foi possível cadastrar o usuário, verificar os campos";
+    }
 }
-
 echo json_encode($retorna);
