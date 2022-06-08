@@ -44,10 +44,12 @@ function block(id){
         data: "",
         url: "../php/bloqueioAcesso.php?id_usuario="+id,
         success: function (resultado) {
-            alert("Usuario Bloqueado com sucesso");
+            alert("Usuario bloqueado com sucesso!");
         },
         error: function (){
-            alert("Usuario Bloqueado com sucesso");
+            alert("Usuario bloqueado com sucesso!");
+            window.location.reload();
+            
         }
     });
 }
@@ -59,10 +61,11 @@ function unblock(id){
         data: "",
         url: "../php/desbloqueioAcesso.php?id_usuario="+id,
         success: function (resultado) {
-            alert("Usuario Desbloqueado com sucesso");
+            alert("Usuario desbloqueado com sucesso!");
         },
         error: function (){
-            alert("Usuario Desbloqueado com sucesso");
+            alert("Usuario desbloqueado com sucesso!");
+            window.location.reload();
         }
     });
 }

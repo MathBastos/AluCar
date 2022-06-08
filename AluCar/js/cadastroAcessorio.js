@@ -1,6 +1,6 @@
-const cadVeiculo = document.getElementById("cadastroAcessorio");
+const cadAcessorio = document.getElementById("cadastroAcessorio");
 
-cadVeiculo.addEventListener("submit", async (e) => {
+cadAcessorio.addEventListener("submit", async (e) => {
     e.preventDefault();
     const dadosForm = new FormData(cadAcessorio);
     dadosForm.append("add", 1);
@@ -13,4 +13,5 @@ cadVeiculo.addEventListener("submit", async (e) => {
 
     const resposta = await dados.json();
     alert(resposta);
+    
 });

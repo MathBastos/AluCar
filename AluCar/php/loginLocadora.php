@@ -19,6 +19,7 @@ if($row == 1){
     $user_locadora = $login_locadora->fetch(PDO::FETCH_ASSOC);
     $_SESSION['id_usuario'] = $user_locadora['id_usuario'];
     $_SESSION['nome'] = $user_locadora['nome'];
+    $flag_bloqueado = $user_locadora['flag_bloqueado'];
 
     $query_login_locadora_locadora = "SELECT * FROM locadora WHERE id_usuario = :id_usuario";
     $sessao_locadora = $conn->prepare($query_login_locadora_locadora);
@@ -27,10 +28,13 @@ if($row == 1){
 
     $dados_locadora = $sessao_locadora->fetch(PDO::FETCH_ASSOC);
     $_SESSION['id_locadora'] = $dados_locadora['id_locadora'];
-    
-    $retorna = ["sucesso"];
+    if($flag_bloqueado == "S"){
+        $retorna = ["bloqueado"];
+    }else{
+        $retorna = ["sucesso"];
+    }
 }else{
-    $retorna = ['erro' => true, 'msg' => "Erro: Locadora não foi cadastrada!"];
+    $retorna = ["erro"];
 }
 
 echo json_encode($retorna);
