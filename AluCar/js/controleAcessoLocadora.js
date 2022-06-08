@@ -6,14 +6,14 @@ $(document).ready(function () {
         url: "../php/controleAcessoLocadora.php",
         success: function (resultado) {
 
-            var html = "<table border='1'>";
+            var html = "<table class='table' itemborder='1'>";
 
             html += "<tr>";
-            html += "<th align='center'>" + "ID" + "</th>";
-            html += "<th align='center'>" + "Nome" + "</th>";
-            html += "<th align='center'>" + "CNPJ" + "</th>";
-            html += "<th align='center'>" + "Editar" + "</th>";
-            html += "<th align='center'>" + "Bloqueado" + "</th>";
+            html += "<td align='center'>" + "ID" + "</td>";
+            html += "<td align='center'>" + "Nome" + "</td>";
+            html += "<td align='center'>" + "CNPJ" + "</td>";
+            html += "<td align='center'>" + "Editar" + "</td>";
+            html += "<td align='center'>" + "Bloqueado" + "</td>";
             html += "</tr>";
 
             for (var i = 0; i < resultado.length; i++) {
@@ -23,9 +23,9 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].cnpj + "</td>";
                 html += "<td align='center'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i> </td>";
                 if (resultado[i].flag_bloqueado == "N"){
-                    html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-ban' aria-hidden='true'></i></a> </td>";
+                    html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";
                 }else{
-                    html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'></td>";
+                    html += "<td align='center'> <a onclick='unblock(" + resultado[i].id_usuario + ")'><i class='fa fa-unlock' aria-hidden='true'></i></a></td>";
                 }
                 html += "</tr>";
             }
@@ -48,6 +48,21 @@ function block(id){
         },
         error: function (){
             alert("Usuario Bloqueado com sucesso");
+        }
+    });
+}
+
+function unblock(id){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/desbloqueioAcesso.php?id_usuario="+id,
+        success: function (resultado) {
+            alert("Usuario Desbloqueado com sucesso");
+        },
+        error: function (){
+            alert("Usuario Desbloqueado com sucesso");
         }
     });
 }

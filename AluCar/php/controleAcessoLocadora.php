@@ -22,7 +22,7 @@ while($row = $resultado->fetch(PDO::FETCH_ASSOC)){
     $retorno[$contador]["nome"] = $row_usuario["nome"];
     $retorno[$contador]["cnpj"] = $row["cnpj"];
     $retorno[$contador]["id_usuario"] = $row['id_usuario'];
-    $retorno[$contador]["flag_bloqueado"] = $row_usuarioss['flag_bloqueado'];
+    $retorno[$contador]["flag_bloqueado"] = $row_usuario['flag_bloqueado'];
 
     $contador++;
 }
