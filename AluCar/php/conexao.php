@@ -15,5 +15,5 @@ try{
 
     //echo "Conexão com banco de dados realizado com sucesso!";
 }  catch(PDOException $err){
-    echo "Erro: Conexão com banco de dados não foi realizada com sucesso. Erro gerado " . $err->getMessage();
+    echo json_encode("Erro: Conexão com banco de dados não foi realizada com sucesso. Erro gerado " . $err->getMessage());
 }

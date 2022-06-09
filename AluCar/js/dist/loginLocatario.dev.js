@@ -7,30 +7,50 @@ loginLocatario.addEventListener("submit", function _callee(e) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
+          $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: "",
+            url: "../php/conexao.php",
+            success: function success() {
+              alert("Oops, tem algo errado! Parece que o banco está fora do ar!");
+            },
+            error: function error() {}
+          });
           e.preventDefault();
           dadosForm = new FormData(loginLocatario);
           dadosForm.append("add", 1);
-          _context.next = 5;
+          _context.next = 6;
           return regeneratorRuntime.awrap(fetch("../php/loginLocatario.php", {
             method: "POST",
             body: dadosForm
           }));
 
-        case 5:
+        case 6:
           dados = _context.sent;
-          _context.next = 8;
+          _context.next = 9;
           return regeneratorRuntime.awrap(dados.json());
 
-        case 8:
+        case 9:
           resposta = _context.sent;
+
+          if (resposta == "admin") {
+            window.location.replace("../html/indexAdm.html");
+          }
+
+          if (resposta == "bloqueado") {
+            alert("Este usuário está bloqueado! Para desbloqueio entrar em contato com administrador.");
+          }
 
           if (resposta == "sucesso") {
             alert("Logado com sucesso!");
-          } else {
+          }
+
+          if (resposta == "erro") {
             alert("Oops, tem algo errado! Verifique suas credenciais.");
           }
 
-        case 10:
+        case 14:
         case "end":
           return _context.stop();
       }

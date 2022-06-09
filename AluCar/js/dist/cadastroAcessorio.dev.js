@@ -1,7 +1,7 @@
 "use strict";
 
-var loginLocadora = document.getElementById("loginLocadoraForm");
-loginLocadora.addEventListener("submit", function _callee(e) {
+var cadAcessorio = document.getElementById("cadastroAcessorio");
+cadAcessorio.addEventListener("submit", function _callee(e) {
   var dadosForm, dados, resposta;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -18,10 +18,10 @@ loginLocadora.addEventListener("submit", function _callee(e) {
             error: function error() {}
           });
           e.preventDefault();
-          dadosForm = new FormData(loginLocadora);
+          dadosForm = new FormData(cadAcessorio);
           dadosForm.append("add", 1);
           _context.next = 6;
-          return regeneratorRuntime.awrap(fetch("../php/loginLocadora.php", {
+          return regeneratorRuntime.awrap(fetch("../php/cadastroAcessorio.php", {
             method: "POST",
             body: dadosForm
           }));
@@ -33,20 +33,9 @@ loginLocadora.addEventListener("submit", function _callee(e) {
 
         case 9:
           resposta = _context.sent;
+          alert(resposta);
 
-          if (resposta == "bloqueado") {
-            alert("Este usuário está bloqueado! Para desbloqueio entrar em contato com administrador.");
-          }
-
-          if (resposta == "sucesso") {
-            window.location.replace("../html/indexLocadora.html");
-          }
-
-          if (resposta == "erro") {
-            alert("Oops, tem algo errado! Verifique suas credenciais.");
-          }
-
-        case 13:
+        case 11:
         case "end":
           return _context.stop();
       }

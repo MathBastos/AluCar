@@ -12,12 +12,23 @@ $login_locatario->bindParam(':senha', $senha_md5);
 $login_locatario->execute();
 
 $row = $login_locatario->rowCount();
+
 if($row == 1){
     $user_locatario = $login_locatario->fetch(PDO::FETCH_ASSOC);
     $_SESSION['id_usuario'] = $user_locatario['id_usuario'];
     $_SESSION['nome'] = $user_locatario['nome'];
-    $retorna = ["sucesso"];
+    $flag_bloqueado = $user_locatario['flag_bloqueado'];
+
+    if($_SESSION['nome'] == "admin"){
+        $retorna = ["admin"];
+    }else{
+        if($flag_bloqueado == "S"){
+            $retorna = ["bloqueado"];
+        }else{
+            $retorna = ["sucesso"];
+        }
+    }
 }else{
-    $retorna = ['erro' => true, 'msg' => "Erro: Usuario não foi cadastrado!"];
+    $retorna = ["erro"];
 }
 echo json_encode($retorna);
