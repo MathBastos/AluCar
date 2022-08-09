@@ -3,7 +3,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
         data: "",
-        url: "../php/controleAcessoLocadora.php",
+        url: "../php/controleAcessorio.php",
         success: function (resultado) {
 
             var html = "<table class='table' itemborder='1'>";
@@ -11,16 +11,18 @@ $(document).ready(function () {
             html += "<tr>";
             html += "<td align='center'>" + "ID" + "</td>";
             html += "<td align='center'>" + "Nome" + "</td>";
-            html += "<td align='center'>" + "CNPJ" + "</td>";
+            html += "<td align='center'>" + "Quantidade" + "</td>";
+            html += "<td align='center'>" + "Valor" + "</td>";
             html += "<td align='center'>" + "Editar" + "</td>";
-            html += "<td align='center'>" + "Bloqueado" + "</td>";
+            html += "<td align='center'>" + "Excluir" + "</td>";
             html += "</tr>";
 
             for (var i = 0; i < resultado.length; i++) {
                 html += "<tr>";
                 html += "<td align='center'>" + resultado[i].id + "</td>";
                 html += "<td align='center'>" + resultado[i].nome + "</td>";
-                html += "<td align='center'>" + resultado[i].cnpj + "</td>";
+                html += "<td align='center'>" + resultado[i].quantidade + "</td>";
+                html += "<td align='center'>" + resultado[i].valor + "</td>";
                 html += "<td align='center'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i> </td>";
                 if (resultado[i].flag_bloqueado == "N"){
                     html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";

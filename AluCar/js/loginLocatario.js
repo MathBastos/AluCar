@@ -1,18 +1,6 @@
 const loginLocatario = document.getElementById("loginLocatarioForm");
 
 loginLocatario.addEventListener("submit", async (e) => {
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        data: "",
-        url: "../php/conexao.php",
-        success: function () {
-            alert("Oops, tem algo errado! Parece que o banco está fora do ar!");
-        },
-        error: function (){           
-        }
-    });
-
     e.preventDefault();
     const dadosForm = new FormData(loginLocatario);
     dadosForm.append("add", 1);
@@ -26,9 +14,11 @@ loginLocatario.addEventListener("submit", async (e) => {
     if(resposta == "admin"){
         window.location.replace("../html/indexAdm.html");
     }
+    
     if(resposta == "bloqueado"){
         alert("Este usuário está bloqueado! Para desbloqueio entrar em contato com administrador.");
     } 
+
     if(resposta == "sucesso"){
         alert("Logado com sucesso!");
     }

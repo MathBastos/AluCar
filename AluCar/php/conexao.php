@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "alucar123";
 $dbname = "alucar";
 $port = 3306;
 
@@ -15,5 +15,5 @@ try{
 
     //echo "Conexão com banco de dados realizado com sucesso!";
 }  catch(PDOException $err){
-    echo json_encode("Erro: Conexão com banco de dados não foi realizada com sucesso. Erro gerado " . $err->getMessage());
+    echo "Erro: Conexão com banco de dados não foi realizada com sucesso. Erro gerado " . $err->getMessage();
 }

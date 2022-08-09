@@ -7,31 +7,21 @@ cadLocadora.addEventListener("submit", function _callee(e) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          $.ajax({
-            type: "GET",
-            dataType: "json",
-            data: "",
-            url: "../php/conexao.php",
-            success: function success() {
-              alert("Oops, tem algo errado! Parece que o banco está fora do ar!");
-            },
-            error: function error() {}
-          });
           e.preventDefault();
           dadosForm = new FormData(cadLocadora);
           dadosForm.append("add", 1);
-          _context.next = 6;
+          _context.next = 5;
           return regeneratorRuntime.awrap(fetch("../php/cadastroLocadora.php", {
             method: "POST",
             body: dadosForm
           }));
 
-        case 6:
+        case 5:
           dados = _context.sent;
-          _context.next = 9;
+          _context.next = 8;
           return regeneratorRuntime.awrap(dados.json());
 
-        case 9:
+        case 8:
           resposta = _context.sent;
           alert(resposta);
 
@@ -39,7 +29,7 @@ cadLocadora.addEventListener("submit", function _callee(e) {
             location.href = 'loginLocadora.html';
           }
 
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
@@ -49,7 +39,7 @@ cadLocadora.addEventListener("submit", function _callee(e) {
 
 function limpa_formulario_cep() {
   //Limpa valores do formulário de cep.
-  document.getElementById('rua').value = "";
+  document.getElementById('logradouro').value = "";
   document.getElementById('bairro').value = "";
   document.getElementById('cidade').value = "";
   document.getElementById('estado').value = "";
@@ -58,7 +48,7 @@ function limpa_formulario_cep() {
 function meu_callback(conteudo) {
   if (!("erro" in conteudo)) {
     //Atualiza os campos com os valores.
-    document.getElementById('rua').value = conteudo.logradouro;
+    document.getElementById('logradouro').value = conteudo.logradouro;
     document.getElementById('bairro').value = conteudo.bairro;
     document.getElementById('cidade').value = conteudo.localidade;
     document.getElementById('estado').value = conteudo.uf;
@@ -81,7 +71,7 @@ function pesquisacep(valor) {
 
     if (validacep.test(cep)) {
       //Preenche os campos com "..." enquanto consulta webservice.
-      document.getElementById('rua').value = "...";
+      document.getElementById('logradouro').value = "...";
       document.getElementById('bairro').value = "...";
       document.getElementById('cidade').value = "...";
       document.getElementById('estado').value = "..."; //Cria um elemento javascript.

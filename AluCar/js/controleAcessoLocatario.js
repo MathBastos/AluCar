@@ -13,7 +13,7 @@ $(document).ready(function () {
             html += "<td align='center'>" + "Nome" + "</td>";
             html += "<td align='center'>" + "CPF" + "</td>";
             html += "<td align='center'>" + "Editar" + "</td>";
-            html += "<td align='center'>" + "Situação" + "</td>";
+            html += "<td align='center'>" + "Bloqueado" + "</td>";
             html += "</tr>";
 
             for (var i = 0; i < resultado.length; i++) {
@@ -23,9 +23,9 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].cpf + "</td>";
                 html += "<td align='center'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i> </td>";
                 if (resultado[i].flag_bloqueado == "N"){
-                    html += "<td align='center'> <a data-toggle='tooltip' data-html='true' title='Bloquear' onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-unlock' aria-hidden='true'></i></a></td>";
+                    html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";
                 }else{
-                    html += "<td align='center'> <a data-toggle='tooltip' data-html='true' title='Desbloquear' onclick='unblock(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";
+                    html += "<td align='center'> <a onclick='unblock(" + resultado[i].id_usuario + ")'><i class='fa fa-unlock' aria-hidden='true'></i></a></td>";
                 }
                 html += "</tr>";
             }

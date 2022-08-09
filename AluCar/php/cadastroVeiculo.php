@@ -1,5 +1,6 @@
 <?php
 include_once "conexao.php";
+include "valida_login.php";
 session_start();
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);

@@ -1,18 +1,6 @@
 const cadLocadora = document.getElementById("cadastroLocadora");
 
 cadLocadora.addEventListener("submit", async (e) => {
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        data: "",
-        url: "../php/conexao.php",
-        success: function () {
-            alert("Oops, tem algo errado! Parece que o banco está fora do ar!");
-        },
-        error: function (){           
-        }
-    });
-
     e.preventDefault();
     const dadosForm = new FormData(cadLocadora);
     dadosForm.append("add", 1);
