@@ -11,12 +11,12 @@ $row = $resultado->rowCount();
 
 while($row = $resultado->fetch(PDO::FETCH_ASSOC)){
 
-    $query_usuario = "SELECT * FROM locadora WHERE id_locadora = :id_locadora";
-    $pega_dados = $conn->prepare($query_usuario);
+    $query_acessorio = "SELECT * FROM locadora WHERE id_locadora = :id_locadora";
+    $pega_dados = $conn->prepare($query_acessorio);
     $pega_dados->bindParam(':id_locadora', $row['id_locadora']);
     $pega_dados->execute();
 
-    $row_locadora = $pega_dados->fetch(PDO::FETCH_ASSOC);
+    $row_acessorio = $pega_dados->fetch(PDO::FETCH_ASSOC);
     
     $retorno[$contador]["id"] = $row["id_acessorio"];
     $retorno[$contador]["nome"] = $row["nome"];

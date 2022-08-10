@@ -5,10 +5,11 @@
   <title>AluCar</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../css/indexLocadora.css">
+  <link rel="stylesheet" type="text/css" href="../css/controleAcessoLocadora.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../FontAwesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -16,32 +17,21 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
       <div class="card-tittle">
-        <h3>Bem Vindo</h3>
+        <a href="indexLocadora.html"><input type="button" value="Voltar" id="btnVoltar" class="btn-tittle btn voltar_btn"></a>
+        <h3>Controle de Veiculos</h3>
       </div>
 			<div class="card-header">
-				<h3></h3>
 			</div>
-      <div class="card-text">
-				<h3>O que deseja?</h3>
-			</div>
-			<div class="card-body">
-        <a href="controleAcessorio.html"><input type="button" value="Controlar Acessórios" id="btnCadastroVeiculo" class="btn"></a>
-			</div>
-      <div class="card-body">
-        <a href="cadastroAcessorio.html"><input type="button" value="Cadastrar Acessório" id="btnControleAcessorio" class="btn"></a>
+			<div class="card-table">
+        <div id="table">
+
+        </div>
       </div>
       <div class="card-body">
-        <a href="controleVeiculo.html"><input type="button" value="Controlar Veículos" id="btnControleVeiculo" class="btn"></a>
-			</div>
-      <div class="card-body">
-        <a href="cadastroVeiculo.html"><input type="button" value="Cadastrar Veículo" id="btnCadastroVeiculo" class="btn"></a>
-      </div>
-      <div class="card-body">
-        <a href="index.html"><input type="button" value="Sair" id="btnSair" class="btn sair_btn"></a>
-			</div>             
+      </div>        
     </div>
   </div>
 </div>
-<script src="../js/indexLocadora.js"></script>
+<script src="../js/controleVeiculo.js"></script>
 </body>
 </html>
