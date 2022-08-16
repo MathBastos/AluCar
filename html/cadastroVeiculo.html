@@ -1,0 +1,147 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AluCar</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../css/cadastroVeiculo.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+      <div class="card-tittle">
+        <h3>Cadastrando veículo</h3>
+      </div>
+			<div class="card-header">
+				<h3></h3>
+			</div>
+			<div class="card-body">
+                <form id="cadastroVeiculo">
+                    <!-- Modelo -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="modelo">Modelo <h11>*</h11></label>  
+                        <div class="col-md-4">
+                            <input id="modelo" name="modelo" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="marca">Marca <h11>*</h11></label>  
+                        <div class="col-md-4">
+                            <input id="marca" name="marca" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                    </div>
+
+                    <!-- Categoria / Cor / Ano -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="categoria">Categoria <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <select class='form-control input-md campos' name="categoria" id="categoria">
+                                <option value=""></option>
+                                <option value="esportivo">Esportivo</option>
+                                <option value="hatch">Hatch</option>
+                                <option value="minivan">Minivan</option>
+                                <option value="picape">Picape</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                            </select>
+                        </div>
+                        <label class="col-md-2 control-label campos" for="cor">Cor <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="cor" name="cor" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="ano">Ano <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="ano" name="ano" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                    </div>
+
+                    <!-- placa / chassi -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="placa">Placa <h11>*</h11></label>  
+                        <div class="col-md-4">
+                            <input id="placa" name="placa" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="chassi">Chassi <h11>*</h11></label>  
+                        <div class="col-md-4">
+                            <input id="chassi" name="chassi" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                    </div>
+
+                    <!-- cambio / motor / direcao -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="cambio">Cambio <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <select class='form-control input-md campos' name="cambio" id="cambio">
+                                <option value=""></option>
+                                <option value="automatico">Automático</option>
+                                <option value="automatizada">Automatizada</option>
+                                <option value="automatizadaDuplaEmbreagem">Automatizada de dupla embreagem</option>
+                                <option value="cvt">CVT</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                        <label class="col-md-2 control-label campos" for="motor">Motor <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="motor" name="motor" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="direcao">Direção <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <select class='form-control input-md campos' name="direcao" id="direcao">
+                                <option value=""></option>
+                                <option value="eletrica">Elétrica</option>
+                                <option value="eletroHidraulica">Eletro-hidráulica</option>
+                                <option value="hidraulica">Hidráulica</option>
+                                <option value="mecanica">Mecânica</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Portas / Passageiros / AR-->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="portas">Portas <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="portas" name="portas" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="qtd_passageiros">Passageiros <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="qtd_passageiros" name="qtd_passageiros" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="ar_condicionado">Ar Cond. <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <select class='form-control input-md campos' name="ar_condicionado" id="ar_condicionado">
+                                <option value=""></option>
+                                <option value="s">Sim</option>
+                                <option value="n">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Valores-->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label campos" for="valor_hora">Valor Hora <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="valor_hora" name="valor_hora" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                        <label class="col-md-2 control-label campos" for="valor_seguro">Valor Seguro <h11>*</h11></label>  
+                        <div class="col-md-2">
+                            <input id="valor_seguro" name="valor_seguro" placeholder="" class="form-control input-md campos" required="" type="text">
+                        </div>
+                    </div>
+                
+                    </div>
+                    <div class="card-body">
+                        <a href="indexLocadora.html"><input type="button" value="Voltar" id="btnVoltar" class="btn voltar_btn"></a>
+                        <div class="col-md-8"></div>
+                        <input type="submit" value="Cadastrar" id="btnCadastrarVeiculo" class="btn cadastrar_btn">
+                    </div> 
+                </form>        
+        </div>
+    </div>
+</div>
+<script src="../js/cadastroVeiculo.js"></script>
+</body>
+</html>

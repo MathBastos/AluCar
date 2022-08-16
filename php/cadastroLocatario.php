@@ -1,0 +1,127 @@
+<?php
+include_once "conexao.php";
+//variável booleana que permite o cadastro futuramente
+$permite_cadastro = false;
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$senha_md5 = md5($dados['senha']);
+
+//validação de endereço repetido, utilizando o cep + numero como parametros.
+$sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
+$pega_dados_endereco = $conn->prepare($sql_fk_endereco);
+$pega_dados_endereco->bindParam(':cep', $dados['cep']);
+$pega_dados_endereco->bindParam(':numero', $dados['numero']);
+$pega_dados_endereco->execute();
+
+//caso nao exista o endereço, ele fará a verificação de usuário repetido.
+$row = $pega_dados_endereco->rowCount();
+if($row == 0){
+    //validação de usuario repetido, utilizando o usuario como parametro.
+    $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
+    $pega_dados_usuario = $conn->prepare($sql_fk_usuario);
+    $pega_dados_usuario->bindParam(':usuario', $dados['usuario']);
+    $pega_dados_usuario->execute();
+
+    //caso nao exista o usuario, ele fará a verificação de CPF repetido.
+    $row = $pega_dados_usuario->rowCount();
+    if($row == 0){
+        //validação de cpf repetido, utilizando o cpf como parametro.
+        $sql_cpf = "SELECT * FROM locatario WHERE (cpf) = (:cpf)";
+        $pegaDados = $conn->prepare($sql_cpf);
+        $pegaDados->bindParam(':cpf', $dados['cpf']);
+        $pegaDados->execute();
+        if($pegaDados->rowCount() == 1){
+            $retorna = "CPF já cadastrado em nosso Banco de Dados!";
+        }else{
+            //caso não exista o cpf, ele muda a variavel de permissão de cadastro pra true, prosseguindo para os inserts no banco.
+            $permite_cadastro = true;
+        }
+    }else{
+        $retorna = "Usuário inserido já existe, favor utilizar outro usuário.";
+    }
+}else{
+    $retorna = "Endereço inserido já existe, favor utilizar outro endereço.";
+}
+
+
+if($permite_cadastro){
+    //query de inserção na tabela endereco
+    $query_endereco ="INSERT INTO endereco ( estado, cidade, bairro, cep, rua, numero, complemento) 
+                        VALUES (:estado, :cidade, :bairro, :cep, :rua, :numero, :complemento)";
+
+    //bindando os valores do form nas variaveis para utilizar a inserção SQL
+    $cad_endereco = $conn->prepare($query_endereco);
+    $cad_endereco->bindParam(':estado', $dados['estado']);
+    $cad_endereco->bindParam(':cidade', $dados['cidade']);
+    $cad_endereco->bindParam(':bairro', $dados['bairro']);
+    $cad_endereco->bindParam(':cep', $dados['cep']);
+    $cad_endereco->bindParam(':rua', $dados['rua']);
+    $cad_endereco->bindParam(':numero', $dados['numero']);
+    $cad_endereco->bindParam(':complemento', $dados['complemento']);
+    //insere no banco
+    $cad_endereco->execute();
+
+    //processo de consultar a tabela endereço para pegar o id_endereco(FOREIGN KEY) para inserção na tabela locatario futuramente.
+    $sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
+    $pega_dados_endereco = $conn->prepare($sql_fk_endereco);
+    $pega_dados_endereco->bindParam(':cep', $dados['cep']);
+    $pega_dados_endereco->bindParam(':numero', $dados['numero']);
+    $pega_dados_endereco->execute();
+
+    $row = $pega_dados_endereco->rowCount();
+    $id_endereco = -1;
+    if($row == 1){
+        $dados_endereco = $pega_dados_endereco->fetch(PDO::FETCH_ASSOC);
+        $id_endereco = $dados_endereco['id_endereco'];
+    }
+
+    //query de inserção na tabela usuário
+    $query_usuario = "INSERT INTO usuario (nome, email, usuario, senha, flag_bloqueado) 
+                        VALUES (:nome, :email, :usuario, :senha, :flag_bloqueado)";
+
+    $flag_bloqueado = "N";
+    //bindando os valores do form nas variaveis para utilizar a inserção SQL
+    $cad_usuario = $conn->prepare($query_usuario);
+    $cad_usuario->bindParam(':nome', $dados['nome']);
+    $cad_usuario->bindParam(':email', $dados['email']);
+    $cad_usuario->bindParam(':usuario', $dados['usuario']);
+    $cad_usuario->bindParam(':senha', $senha_md5);
+    $cad_usuario->bindParam(':flag_bloqueado', $flag_bloqueado);
+    //insere no banco
+    $cad_usuario->execute();
+
+    //processo de consultar a tabela endereço para pegar o id_usuario(FOREIGN KEY) para inserção na tabela locatario futuramente.
+    $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
+    $pega_dados_usuario = $conn->prepare($sql_fk_usuario);
+    $pega_dados_usuario->bindParam(':usuario', $dados['usuario']);
+    $pega_dados_usuario->execute();
+
+    $row = $pega_dados_usuario->rowCount();
+    $id_usuario = -1;
+    if($row == 1){
+        $dados_usuario = $pega_dados_usuario->fetch(PDO::FETCH_ASSOC);
+        $id_usuario = $dados_usuario['id_usuario'];
+    }
+
+    //query de inserção na tabela locatario
+    $query_locatario = "INSERT INTO locatario (cpf, celular, data_nascimento, id_endereco, id_usuario) 
+                        VALUES (:cpf, :celular, :data_nascimento, :id_endereco, :id_usuario)";
+
+    //bindando os valores do form nas variaveis para utilizar a inserção SQL
+    $cad_locatario = $conn->prepare($query_locatario);
+    $cad_locatario->bindParam(':cpf', $dados['cpf']);
+    $cad_locatario->bindParam(':celular', $dados['celular']);
+    $cad_locatario->bindParam(':data_nascimento', $dados['data_nascimento']);
+    //guardando as foreign keys das variaveis nos parametros
+    $cad_locatario->bindParam(':id_endereco', $id_endereco);
+    $cad_locatario->bindParam(':id_usuario', $id_usuario);
+    //insere no banco
+    $cad_locatario->execute();
+
+    //caso insira com sucesso, retornará a mensagem validando.
+    if($cad_locatario->rowCount() == 1){
+        $retorna = "Usuário cadastrado com sucesso!";
+    }else{
+        $retorna = "Não foi possível cadastrar o usuário, verificar os campos.";
+    }  
+}
+echo json_encode($retorna);
