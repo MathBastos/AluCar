@@ -24,7 +24,7 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].quantidade + "</td>";
                 html += "<td align='center'>" + resultado[i].valor + "</td>";
                 html += "<td align='center'> <a href='indexLocadora.html' <i class='fa fa-pencil-square-o' aria-hidden='true'></i></a></td>";
-                html += "<td align='center'> <i class='fas fa-trash-alt' aria-hidden='true'></i> </td>";
+                html += "<td align='center'> <a onclick='deleteAcessorio("+ resultado[i].id +")'> <i class='fas fa-trash-alt' aria-hidden='true'></i> </td>";
                 html += "</tr>";
             }
             html += "</table>";
@@ -34,3 +34,20 @@ $(document).ready(function () {
         }
     });
 });
+
+
+function deleteAcessorio(id){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/deletaAcessorio.php?id_acessorio="+id,
+        success: function (resultado) {
+            alert("Acessório removido com sucesso!");
+            window.location.reload();
+        },
+        error: function (){
+            
+        }
+    });
+}
