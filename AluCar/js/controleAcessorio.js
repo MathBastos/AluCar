@@ -23,7 +23,7 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].nome + "</td>";
                 html += "<td align='center'>" + resultado[i].quantidade + "</td>";
                 html += "<td align='center'>" + resultado[i].valor + "</td>";
-                html += "<td align='center'> <a href='indexLocadora.html' <i class='fa fa-pencil-square-o' aria-hidden='true'></i></a></td>";
+                html += "<td align='center'> <a onclick='editAcessorio("+ resultado[i].id +")'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i></td>";
                 html += "<td align='center'> <a onclick='deleteAcessorio("+ resultado[i].id +")'> <i class='fas fa-trash-alt' aria-hidden='true'></i> </td>";
                 html += "</tr>";
             }
@@ -51,3 +51,21 @@ function deleteAcessorio(id){
         }
     });
 }
+
+function editAcessorio(id){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionaAcessorio.php?id_acessorio="+id,
+        success: function (resultado) {
+            window.location.replace("../html/cadastroAcessorio.html?id_acessorio="+id);
+        },
+        error: function (){
+            
+        }
+    });
+    
+
+}
+

@@ -10,7 +10,7 @@ cadAcessorio.addEventListener("submit", async (e) => {
         body: dadosForm,
 
     });
-
+    
     const resposta = await dados.json();
     alert(resposta);
     
