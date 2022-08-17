@@ -1,0 +1,2 @@
+Tela de visualizao de alguel onde a locadora coloca um check de pago ou nao
+Trocar a ideia de ALUGAR para PRE RESERVAR
