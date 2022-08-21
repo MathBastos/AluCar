@@ -1,10 +1,11 @@
 <?php
 include_once "conexao.php";
+session_start();
 //variável booleana que permite o cadastro futuramente
 $permite_cadastro = false;
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $senha_md5 = md5($dados['senha']);
-$id_locatario = $_SESSION["id_locatario"];
+$id_locadora = $_SESSION["id_locadora"];
 
 //validação de endereço repetido, utilizando o cep + numero como parametros.
 $sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
@@ -25,13 +26,13 @@ if($row == 0){
     //caso nao exista o usuario, ele fará a verificação de CPF repetido.
     $row = $pega_dados_usuario->rowCount();
     if($row == 0){
-        //validação de cpf repetido, utilizando o cpf como parametro.
-        $sql_cpf = "SELECT * FROM locatario WHERE (cpf) = (:cpf)";
-        $pegaDados = $conn->prepare($sql_cpf);
-        $pegaDados->bindParam(':cpf', $dados['cpf']);
+        //validação de CNPJ repetido, utilizando o CNPJ como parametro.
+        $sql_cnpj = "SELECT * FROM locadora WHERE (cnpj) = (:cnpj)";
+        $pegaDados = $conn->prepare($sql_cnpj);
+        $pegaDados->bindParam(':cnpj', $dados['cnpj']);
         $pegaDados->execute();
         if($pegaDados->rowCount() == 1){
-            $retorna = "CPF já cadastrado em nosso Banco de Dados!";
+            $retorna = "CNPJ já cadastrado em nosso Banco de Dados!";
         }else{
             //caso não exista o cpf, ele muda a variavel de permissão de cadastro pra true, prosseguindo para os inserts no banco.
             $permite_cadastro = true;
@@ -47,7 +48,7 @@ if($row == 0){
 if($permite_cadastro){
     //query de inserção na tabela endereco
     $query_endereco ="INSERT INTO endereco ( estado, cidade, bairro, cep, rua, numero, complemento) 
-                        VALUES (:estado, :cidade, :bairro, :cep, :rua, :numero, :complemento)";
+    VALUES (:estado, :cidade, :bairro, :cep, :rua, :numero, :complemento)";
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_endereco = $conn->prepare($query_endereco);
@@ -77,7 +78,7 @@ if($permite_cadastro){
 
     //query de inserção na tabela usuário
     $query_usuario = "INSERT INTO usuario (nome, email, usuario, senha, flag_bloqueado) 
-                        VALUES (:nome, :email, :usuario, :senha, :flag_bloqueado)";
+    VALUES (:nome, :email, :usuario, :senha, :flag_bloqueado)";
 
     $flag_bloqueado = "N";
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
@@ -90,7 +91,7 @@ if($permite_cadastro){
     //insere no banco
     $cad_usuario->execute();
 
-    //processo de consultar a tabela endereço para pegar o id_usuario(FOREIGN KEY) para inserção na tabela locatario futuramente.
+    //processo de consultar a tabela endereço para pegar o id_usuario(FOREIGN KEY) para inserção na tabela locadora futuramente.
     $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
     $pega_dados_usuario = $conn->prepare($sql_fk_usuario);
     $pega_dados_usuario->bindParam(':usuario', $dados['usuario']);
@@ -103,26 +104,49 @@ if($permite_cadastro){
         $id_usuario = $dados_usuario['id_usuario'];
     }
 
-    //query de inserção na tabela locatario
-    $query_locatario = "INSERT INTO locatario (cpf, celular, data_nascimento, id_endereco, id_usuario) 
-                        VALUES (:cpf, :celular, :data_nascimento, :id_endereco, :id_usuario)";
+    //query de inserção na tabela locadora
+    $query_locadora = "INSERT INTO locadora (cnpj, telefone, id_usuario) 
+                        VALUES (:cnpj, :telefone, :id_usuario)";
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
-    $cad_locatario = $conn->prepare($query_locatario);
-    $cad_locatario->bindParam(':cpf', $dados['cpf']);
-    $cad_locatario->bindParam(':celular', $dados['celular']);
-    $cad_locatario->bindParam(':data_nascimento', $dados['data_nascimento']);
+    $cad_locadora = $conn->prepare($query_locadora);
+    $cad_locadora->bindParam(':cnpj', $dados['cnpj']);
+    $cad_locadora->bindParam(':telefone', $dados['telefone']);
     //guardando as foreign keys das variaveis nos parametros
-    $cad_locatario->bindParam(':id_endereco', $id_endereco);
-    $cad_locatario->bindParam(':id_usuario', $id_usuario);
+    $cad_locadora->bindParam(':id_usuario', $id_usuario);
     //insere no banco
-    $cad_locatario->execute();
+    $cad_locadora->execute();
+
+    //processo de consultar a tabela endereço para pegar o id_usuario(FOREIGN KEY) para inserção na tabela locadora futuramente.
+    $sql_fk_locadora = "SELECT * FROM locadora WHERE cnpj = :cnpj ORDER BY id_locadora desc";
+    $pega_dados_locadora = $conn->prepare($sql_fk_locadora);
+    $pega_dados_locadora->bindParam(':cnpj', $dados['cnpj']);
+    $pega_dados_locadora->execute();
+
+    $row = $pega_dados_locadora->rowCount();
+    $id_locadora = -1;
+    if($row == 1){
+        $dados_locadora = $pega_dados_locadora->fetch(PDO::FETCH_ASSOC);
+        $id_locadora = $dados_locadora['id_locadora'];
+    }
+
+    //query de inserção na tabela usuário
+    $query_loc_end = "INSERT INTO locadora_endereco (id_locadora, id_endereco) 
+                        VALUES (:id_locadora, :id_endereco)";
+
+    //bindando os valores do form nas variaveis para utilizar a inserção SQL
+    $cad_loc_end = $conn->prepare($query_loc_end);
+    $cad_loc_end->bindParam(':id_locadora', $id_locadora);
+    $cad_loc_end->bindParam(':id_endereco', $id_endereco);
+    //insere no banco
+    $cad_loc_end->execute();
+
 
     //caso insira com sucesso, retornará a mensagem validando.
-    if($cad_locatario->rowCount() == 1){
-        $retorna = "Usuário cadastrado com sucesso!";
+    if($cad_locadora->rowCount() == 1){
+            $retorna = "Locadora cadastrada com sucesso!";
     }else{
-        $retorna = "Não foi possível cadastrar o usuário, verificar os campos.";
-    }  
+            $retorna = "Não foi possível cadastrar a Locadora, verificar os campos";
+    }
 }
 echo json_encode($retorna);

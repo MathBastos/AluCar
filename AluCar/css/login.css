@@ -63,3 +63,9 @@ color: white;
 .links a{
 margin-left: 4px;
 }
+
+#cadastrese{
+  color: blue;
+  text-decoration: underline blue;
+  cursor: pointer;
+}

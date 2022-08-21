@@ -22,3 +22,18 @@ loginLocadora.addEventListener("submit", async (e) => {
         alert("Oops, tem algo errado! Verifique suas credenciais.");
     }
 });
+
+function limpaId() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionaLocadora.php?id_locadora=-1",
+        success: function (resultado) {
+            window.location.replace("../html/cadastroLocadora.html?id_locadora=-1");
+        },
+        error: function () {
+
+        }
+    });
+}

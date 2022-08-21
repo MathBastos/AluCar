@@ -8,7 +8,6 @@ cadAcessorio.addEventListener("submit", async (e) => {
     const dados = await fetch("../php/cadastroAcessorio.php", {
         method: "POST",
         body: dadosForm,
-
     });
     
     const resposta = await dados.json();

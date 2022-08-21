@@ -21,7 +21,7 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].id + "</td>";
                 html += "<td align='center'>" + resultado[i].nome + "</td>";
                 html += "<td align='center'>" + resultado[i].cnpj + "</td>";
-                html += "<td align='center'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i> </td>";
+                html += "<td align='center'> <a onclick='editLocadora(" + resultado[i].id + ")'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i></td>";
                 if (resultado[i].flag_bloqueado == "N"){
                     html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";
                 }else{
@@ -68,4 +68,21 @@ function unblock(id){
             window.location.reload();
         }
     });
+}
+
+function editLocadora(id) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionaLocadora.php?id_locadora=" + id,
+        success: function (resultado) {
+            window.location.replace("../html/cadastroLocadora.html?id_locadora=" + id);
+        },
+        error: function () {
+
+        }
+    });
+
+
 }

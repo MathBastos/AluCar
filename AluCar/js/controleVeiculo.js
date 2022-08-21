@@ -23,7 +23,7 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].modelo + "</td>";
                 html += "<td align='center'>" + resultado[i].marca + "</td>";
                 html += "<td align='center'>" + resultado[i].placa + "</td>";
-                html += "<td align='center'> <a href='indexLocadora.html' <i class='fa fa-pencil-square-o' aria-hidden='true'></i></a></td>";
+                html += "<td align='center'> <a onclick='editVeiculo(" + resultado[i].id + ")'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i></td>";
                 html += "<td align='center'> <a onclick='deleteVeiculo("+ resultado[i].id +")'> <i class='fas fa-trash-alt' aria-hidden='true'></i> </td>";
                 html += "</tr>";
             }
@@ -50,4 +50,21 @@ function deleteVeiculo(id){
             
         }
     });
+}
+
+function editVeiculo(id) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionaVeiculo.php?id_veiculo=" + id,
+        success: function (resultado) {
+            window.location.replace("../html/cadastroVeiculo.html?id_veiculo=" + id);
+        },
+        error: function () {
+
+        }
+    });
+
+
 }

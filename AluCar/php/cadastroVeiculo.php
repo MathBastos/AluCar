@@ -1,12 +1,70 @@
 <?php
 include_once "conexao.php";
-include "valida_login.php";
 session_start();
+$id_veiculo = $_SESSION["id_veiculo"];
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-$query_veiculo = "INSERT INTO veiculo (modelo, marca, ano, cambio, direcao, categoria, chassi, placa, cor, motor, portas, qtd_passageiros, ar_condicionado, valor_hora, valor_seguro, id_locadora) 
-                    VALUES (:modelo, :marca, :ano, :cambio, :direcao, :categoria, :chassi, :placa, :cor, :motor, :portas, :qtd_passageiros, :ar_condicionado, :valor_hora, :valor_seguro, :id_locadora)";
+if($id_veiculo > 0){
+    $query_veiculo = 
+    "UPDATE veiculo 
+        SET  modelo = :modelo
+            ,marca = :marca
+            ,ano = :ano
+            ,cambio = :cambio
+            ,direcao = :direcao
+            ,categoria = :categoria
+            ,chassi = :chassi
+            ,placa = :placa
+            ,cor = :cor
+            ,motor = :motor
+            ,portas = :portas
+            ,qtd_passageiros = :qtd_passageiros
+            ,ar_condicionado = :ar_condicionado
+            ,valor_hora = :valor_hora
+            ,valor_seguro = :valor_seguro
+            ,id_locadora = :id_locadora
+        WHERE id_veiculo = :id_veiculo"; 
+}else{
+    $query_veiculo = 
+    "INSERT
+        INTO veiculo(
+             modelo
+            ,marca
+            ,ano
+            ,cambio
+            ,direcao
+            ,categoria
+            ,chassi
+            ,placa
+            ,cor
+            ,motor
+            ,portas
+            ,qtd_passageiros
+            ,ar_condicionado
+            ,valor_hora
+            ,valor_seguro
+            ,id_locadora
+            ) 
+        VALUES (
+         :modelo
+        ,:marca
+        ,:ano
+        ,:cambio
+        ,:direcao
+        ,:categoria
+        ,:chassi
+        ,:placa
+        ,:cor
+        ,:motor
+        ,:portas
+        ,:qtd_passageiros
+        ,:ar_condicionado
+        ,:valor_hora
+        ,:valor_seguro
+        ,:id_locadora
+        )";
+}
 
 $cad_veiculo = $conn->prepare($query_veiculo);
 $cad_veiculo->bindParam(':modelo', $dados['modelo']);
@@ -26,18 +84,24 @@ $cad_veiculo->bindParam(':valor_hora', $dados['valor_hora']);
 $cad_veiculo->bindParam(':valor_seguro', $dados['valor_seguro']);
 $cad_veiculo->bindParam(':id_locadora', $_SESSION['id_locadora']);
 
-$sql = "SELECT * FROM veiculo WHERE (placa) = (:placa)";
-$pegaDados = $conn->prepare($sql);
-$pegaDados->bindParam(':placa', $dados['placa']);
-$pegaDados->execute();
-if($pegaDados->rowCount() == 1){
-   $retorna = "Placa já cadastrada em nosso Banco de Dados!";
-}else{
+if($id_veiculo > 0){
+    $cad_veiculo->bindParam(':id_veiculo', $id_veiculo);
     $cad_veiculo->execute();
-    if($cad_veiculo->rowCount() == 1){
-        $retorna = "Veículo cadastrado com sucesso!";
+    $retorna = "Veículo atualizado com sucesso!";
+}else{
+    $sql = "SELECT * FROM veiculo WHERE (placa) = (:placa)";
+    $pegaDados = $conn->prepare($sql);
+    $pegaDados->bindParam(':placa', $dados['placa']);
+    $pegaDados->execute();
+    if($pegaDados->rowCount() == 1){
+        $retorna = "Placa já cadastrada em nosso Banco de Dados!";
     }else{
-        $retorna = "Não foi possível cadastrar o veículo, verificar os campos";
+        $cad_veiculo->execute();
+        if($cad_veiculo->rowCount() == 1){
+            $retorna = "Veículo cadastrado com sucesso!";
+        }else{
+            $retorna = "Não foi possível cadastrar o veículo, verificar os campos";
+        }
     }
 }
 echo json_encode($retorna);
