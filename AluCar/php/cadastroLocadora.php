@@ -7,6 +7,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $senha_md5 = md5($dados['senha']);
 $id_locadora = $_SESSION["id_locadora"];
 
+// $isAlterar = $id_locadora > 0 ? true:false;
 
 if($id_locadora <= 0){
     //validação de endereço repetido, utilizando o cep + numero como parametros.
@@ -53,8 +54,22 @@ if($id_locadora <= 0){
 //query de inserção/edição na tabela endereco
 if($permite_cadastro){
     if($id_locadora > 0){
+    
+    //buscando ID Endereco  
+    $query_id_enredeco = 
+    "SELECT id_endereco 
+     FROM locadora_endereco
+     WHERE id_locadora = :id_locadora;
+    ";
+    $result_id_endereco = $conn->prepare($query_id_enredeco);
+    $result_id_endereco->bindParam(':id_locadora', $id_locadora);
+    $result_id_endereco->execute();
+    $dado_id_loc = $result_id_endereco->fetch(PDO::FETCH_ASSOC);
+    $id_end = $dado_id_loc['id_endereco'];
+
+
     $query_endereco = 
-    "UPDATE locadora 
+    "UPDATE endereco 
         SET  
          estado = :estado
         ,cidade = :cidade
@@ -63,27 +78,27 @@ if($permite_cadastro){
         ,rua = :rua
         ,numero = :numero
         ,complemento = :complemento
-        WHERE id_locadora = :id_locadora"; 
+        WHERE id_endereco = :id_endereco"; 
     }else{
-    $query_endereco =
-    "INSERT INTO endereco (
-     estado
-    ,cidade
-    ,bairro
-    ,cep
-    ,rua
-    ,numero
-    ,complemento
-    ) 
-    VALUES (
-     :estado
-    ,:cidade
-    ,:bairro
-    ,:cep
-    ,:rua
-    ,:numero
-    ,:complemento
-    )";
+        $query_endereco =
+        "INSERT INTO endereco (
+        estado
+        ,cidade
+        ,bairro
+        ,cep
+        ,rua
+        ,numero
+        ,complemento
+        ) 
+        VALUES (
+        :estado
+        ,:cidade
+        ,:bairro
+        ,:cep
+        ,:rua
+        ,:numero
+        ,:complemento
+        )";
     }
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
@@ -97,7 +112,7 @@ if($permite_cadastro){
     $cad_endereco->bindParam(':complemento', $dados['complemento']);
     //insere no banco
     if($id_locadora > 0){
-        $cad_endereco->bindParam(':id_locadora', $id_locadora);
+        $cad_endereco->bindParam(':id_endereco', $id_end);
         $cad_endereco->execute();
     }else{
         $cad_endereco->execute();
@@ -120,15 +135,28 @@ if($permite_cadastro){
 
     //query de inserção/edição na tabela usuário
     if($id_locadora > 0){
+
+    //buscando ID usuario
+    $query_id_usuario = 
+    "SELECT id_usuario
+     FROM locadora
+     WHERE id_locadora = :id_locadora;
+    ";
+    $result_id_usuario = $conn->prepare($query_id_usuario);
+    $result_id_usuario->bindParam(':id_locadora', $id_locadora);
+    $result_id_usuario->execute();
+    $dado_id_user = $result_id_usuario->fetch(PDO::FETCH_ASSOC);
+    $id_user = $dado_id_user['id_usuario'];
+
     $query_usuario = 
-    "UPDATE locadora 
+    "UPDATE usuario 
         SET  
          nome = :nome
         ,email = :email
         ,usuario = :usuario
         ,senha = :senha
         ,flag_bloqueado = :flag_bloqueado
-        WHERE id_locadora = :id_locadora"; 
+        WHERE id_usuario = :id_usuario"; 
     }else{
         $query_usuario = 
         "INSERT INTO usuario (
@@ -158,7 +186,7 @@ if($permite_cadastro){
 
     //insere no banco
     if($id_locadora > 0){
-        $cad_usuario->bindParam(':id_locadora', $id_locadora);
+        $cad_usuario->bindParam(':id_usuario', $id_user);
         $cad_usuario->execute();
     }else{
         $cad_usuario->execute();
@@ -188,7 +216,6 @@ if($permite_cadastro){
         SET  
          cnpj = :cnpj
         ,telefone = :telefone
-        ,id_usuario = :id_usuario
         WHERE id_locadora = :id_locadora"; 
     }else{
         $query_locadora = 
@@ -208,14 +235,14 @@ if($permite_cadastro){
     $cad_locadora = $conn->prepare($query_locadora);
     $cad_locadora->bindParam(':cnpj', $dados['cnpj']);
     $cad_locadora->bindParam(':telefone', $dados['telefone']);
-    //guardando as foreign keys das variaveis nos parametros
-    $cad_locadora->bindParam(':id_usuario', $id_usuario);
-    //insere no banco
 
+    //insere no banco
     if($id_locadora > 0){
         $cad_locadora->bindParam(':id_locadora', $id_locadora);
         $cad_locadora->execute();
     }else{
+        //guardando as foreign keys das variaveis nos parametros
+        $cad_locadora->bindParam(':id_usuario', $id_usuario);
         $cad_locadora->execute();
     }
 
@@ -226,11 +253,15 @@ if($permite_cadastro){
     $pega_dados_locadora->execute();
 
     $row = $pega_dados_locadora->rowCount();
-    $id_locadora = -1;
-    if($row == 1){
-        $dados_locadora = $pega_dados_locadora->fetch(PDO::FETCH_ASSOC);
-        $id_locadora = $dados_locadora['id_locadora'];
+
+    if($id_locadora <= 0){
+        //$id_locadora = -1;
+        if($row == 1){
+            $dados_locadora = $pega_dados_locadora->fetch(PDO::FETCH_ASSOC);
+            $id_locadora2 = $dados_locadora['id_locadora'];
+        }
     }
+
 
     //query de inserção/edição na tabela usuário
     if($id_locadora > 0){
@@ -253,6 +284,7 @@ if($permite_cadastro){
         )";
     }
 
+    if($id_locadora <= 0){
     $query_loc_end = 
     "INSERT INTO locadora_endereco (
      id_locadora
@@ -265,18 +297,13 @@ if($permite_cadastro){
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_loc_end = $conn->prepare($query_loc_end);
-    $cad_loc_end->bindParam(':id_locadora', $id_locadora);
+    $cad_loc_end->bindParam(':id_locadora', $id_locadora2);
     $cad_loc_end->bindParam(':id_endereco', $id_endereco);
 
     //insere no banco
-    if($id_locadora > 0){
-        $cad_loc_end->bindParam(':id_locadora', $id_locadora);
-        $cad_loc_end->execute();
-        $retorna = "Locadora atualizada com sucesso!";
-    }else{
-        $cad_loc_end->execute();
-    }
-    
+    $cad_loc_end->execute();
+    }  
+
     //caso insira com sucesso, retornará a mensagem validando.
     if($id_locadora <= 0){
         if($cad_locadora->rowCount() == 1){

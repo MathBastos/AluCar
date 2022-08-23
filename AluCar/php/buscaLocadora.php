@@ -27,6 +27,7 @@ if($id_locadora > 0){
             ON locadora.id_locadora = locadora_endereco.id_locadora 
         INNER JOIN endereco 
             ON locadora_endereco.id_endereco = endereco.id_endereco
+    WHERE locadora.id_locadora = :id_locadora
     ";
 
 

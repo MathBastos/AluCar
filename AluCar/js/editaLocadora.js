@@ -17,7 +17,6 @@ function editaLocadora(){
             document.getElementById("cidade").value = resultado.cidade;
             document.getElementById("complemento").value = resultado.complemento;
             document.getElementById("usuario").value = resultado.usuario;
-            
         },
         error: function (){
             

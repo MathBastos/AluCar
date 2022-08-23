@@ -6,6 +6,8 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $senha_md5 = md5($dados['senha']);
 $id_locatario = $_SESSION["id_locatario"];
 
+$isAlterar = $id_locatario > 0 ? true:false;
+
 //validação de endereço repetido, utilizando o cep + numero como parametros.
 $sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
 $pega_dados_endereco = $conn->prepare($sql_fk_endereco);
