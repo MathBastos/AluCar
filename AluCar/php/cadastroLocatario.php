@@ -1,5 +1,6 @@
 <?php
 include_once "conexao.php";
+session_start();
 //variável booleana que permite o cadastro futuramente
 $permite_cadastro = false;
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -41,12 +42,12 @@ if($id_locatario <= 0){
             }
             }else{
             $retorna = "Usuário inserido já existe, favor utilizar outro usuário.";
-        }
+            }
         }else{
             $retorna = "Endereço inserido já existe, favor utilizar outro endereço.";
-    }else{
-            $permite_cadastro = true;
         }
+    }else{
+        $permite_cadastro = true;
     }
 
 
@@ -58,7 +59,7 @@ if($permite_cadastro){
         //buscando ID Endereco  
         $query_id_enredeco = 
         "SELECT id_endereco 
-        FROMtario
+        FROM locatario
         WHERE id_locatario= :id_locatario;
         ";
 
@@ -96,7 +97,12 @@ if($permite_cadastro){
     $cad_endereco->bindParam(':numero', $dados['numero']);
     $cad_endereco->bindParam(':complemento', $dados['complemento']);
     //insere no banco
-    $cad_endereco->execute();
+    if($id_locatario > 0){
+        $cad_endereco->bindParam(':id_endereco', $id_end);
+        $cad_endereco->execute();
+    }else{
+        $cad_endereco->execute();
+    }
 
     //processo de consultar a tabela endereço para pegar o id_endereco(FOREIGN KEY) para inserção na tabela locatario futuramente.
     $sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
@@ -117,11 +123,11 @@ if($permite_cadastro){
         //buscando ID usuario
         $query_id_usuario = 
         "SELECT id_usuario
-        FROM locadora
-        WHERE id_locadora = :id_locadora;
+        FROM locatario
+        WHERE id_locatario = :id_locatario;
         ";
         $result_id_usuario = $conn->prepare($query_id_usuario);
-        $result_id_usuario->bindParam(':id_locadora', $id_locadora);
+        $result_id_usuario->bindParam(':id_locatario', $id_locatario);
         $result_id_usuario->execute();
         $dado_id_user = $result_id_usuario->fetch(PDO::FETCH_ASSOC);
         $id_user = $dado_id_user['id_usuario'];
@@ -150,7 +156,12 @@ if($permite_cadastro){
     $cad_usuario->bindParam(':senha', $senha_md5);
     $cad_usuario->bindParam(':flag_bloqueado', $flag_bloqueado);
     //insere no banco
-    $cad_usuario->execute();
+    if($id_locatario > 0){
+        $cad_usuario->bindParam(':id_usuario', $id_user);
+        $cad_usuario->execute();
+    }else{
+        $cad_usuario->execute();
+    }
 
     //processo de consultar a tabela endereço para pegar o id_usuario(FOREIGN KEY) para inserção na tabela locatario futuramente.
     $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
@@ -166,13 +177,15 @@ if($permite_cadastro){
     }
 
      //query de inserção/edição na tabela locatario
+    
     if($id_locatario > 0){
-         "UPDATE locadora 
+        $query_locatario = 
+         "UPDATE locatario 
         SET  
          cpf = :cpf
-        ,celular = :telefone
-        ,data_nascimento = :telefone
-        WHERE id_locadora = :id_locadora"; 
+        ,celular = :celular
+        ,data_nascimento = :data_nascimento
+        WHERE id_locatario = :id_locatario"; 
     }else{
     $query_locatario = "INSERT INTO locatario (cpf, celular, data_nascimento, id_endereco, id_usuario) 
                         VALUES (:cpf, :celular, :data_nascimento, :id_endereco, :id_usuario)";
@@ -184,10 +197,16 @@ if($permite_cadastro){
     $cad_locatario->bindParam(':celular', $dados['celular']);
     $cad_locatario->bindParam(':data_nascimento', $dados['data_nascimento']);
     //guardando as foreign keys das variaveis nos parametros
-    $cad_locatario->bindParam(':id_endereco', $id_endereco);
-    $cad_locatario->bindParam(':id_usuario', $id_usuario);
     //insere no banco
-    $cad_locatario->execute();
+    if($id_locatario > 0){
+        $cad_locatario->bindParam(':id_locatario', $id_locatario);
+        $cad_locatario->execute();
+    }else{
+        //guardando as foreign keys das variaveis nos parametros
+        $cad_locatario->bindParam(':id_usuario', $id_usuario);
+        $cad_locatario->bindParam(':id_endereco', $id_endereco);
+        $cad_locatario->execute();
+    }
 
     //caso insira com sucesso, retornará a mensagem validando.
     
