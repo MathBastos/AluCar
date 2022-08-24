@@ -173,9 +173,10 @@ if($permite_cadastro){
         ,:senha
         ,:flag_bloqueado
         )";
+        $flag_bloqueado = "N";
     }
 
-    $flag_bloqueado = "N";
+    
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_usuario = $conn->prepare($query_usuario);
     $cad_usuario->bindParam(':nome', $dados['nome']);

@@ -6,50 +6,85 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $senha_md5 = md5($dados['senha']);
 $id_locatario = $_SESSION["id_locatario"];
 
-$isAlterar = $id_locatario > 0 ? true:false;
+//$isAlterar = $id_locatario > 0 ? true:false;
 
+if($id_locatario <= 0){
 //validação de endereço repetido, utilizando o cep + numero como parametros.
-$sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
-$pega_dados_endereco = $conn->prepare($sql_fk_endereco);
-$pega_dados_endereco->bindParam(':cep', $dados['cep']);
-$pega_dados_endereco->bindParam(':numero', $dados['numero']);
-$pega_dados_endereco->execute();
+    $sql_fk_endereco = "SELECT * FROM endereco WHERE cep = :cep AND numero = :numero ORDER BY id_endereco desc";
+    $pega_dados_endereco = $conn->prepare($sql_fk_endereco);
+    $pega_dados_endereco->bindParam(':cep', $dados['cep']);
+    $pega_dados_endereco->bindParam(':numero', $dados['numero']);
+    $pega_dados_endereco->execute();
 
-//caso nao exista o endereço, ele fará a verificação de usuário repetido.
-$row = $pega_dados_endereco->rowCount();
-if($row == 0){
-    //validação de usuario repetido, utilizando o usuario como parametro.
-    $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
-    $pega_dados_usuario = $conn->prepare($sql_fk_usuario);
-    $pega_dados_usuario->bindParam(':usuario', $dados['usuario']);
-    $pega_dados_usuario->execute();
-
-    //caso nao exista o usuario, ele fará a verificação de CPF repetido.
-    $row = $pega_dados_usuario->rowCount();
+    //caso nao exista o endereço, ele fará a verificação de usuário repetido.
+    $row = $pega_dados_endereco->rowCount();
     if($row == 0){
-        //validação de cpf repetido, utilizando o cpf como parametro.
-        $sql_cpf = "SELECT * FROM locatario WHERE (cpf) = (:cpf)";
-        $pegaDados = $conn->prepare($sql_cpf);
-        $pegaDados->bindParam(':cpf', $dados['cpf']);
-        $pegaDados->execute();
-        if($pegaDados->rowCount() == 1){
-            $retorna = "CPF já cadastrado em nosso Banco de Dados!";
+        //validação de usuario repetido, utilizando o usuario como parametro.
+        $sql_fk_usuario = "SELECT * FROM usuario WHERE usuario = :usuario ORDER BY id_usuario desc";
+        $pega_dados_usuario = $conn->prepare($sql_fk_usuario);
+        $pega_dados_usuario->bindParam(':usuario', $dados['usuario']);
+        $pega_dados_usuario->execute();
+
+        //caso nao exista o usuario, ele fará a verificação de CPF repetido.
+        $row = $pega_dados_usuario->rowCount();
+        if($row == 0){
+            //validação de cpf repetido, utilizando o cpf como parametro.
+            $sql_cpf = "SELECT * FROM locatario WHERE (cpf) = (:cpf)";
+            $pegaDados = $conn->prepare($sql_cpf);
+            $pegaDados->bindParam(':cpf', $dados['cpf']);
+            $pegaDados->execute();
+            if($pegaDados->rowCount() == 1){
+                $retorna = "CPF já cadastrado em nosso Banco de Dados!";
+            }else{
+                //caso não exista o cpf, ele muda a variavel de permissão de cadastro pra true, prosseguindo para os inserts no banco.
+                $permite_cadastro = true;
+            }
+            }else{
+            $retorna = "Usuário inserido já existe, favor utilizar outro usuário.";
+        }
         }else{
-            //caso não exista o cpf, ele muda a variavel de permissão de cadastro pra true, prosseguindo para os inserts no banco.
+            $retorna = "Endereço inserido já existe, favor utilizar outro endereço.";
+    }else{
             $permite_cadastro = true;
         }
-    }else{
-        $retorna = "Usuário inserido já existe, favor utilizar outro usuário.";
     }
-}else{
-    $retorna = "Endereço inserido já existe, favor utilizar outro endereço.";
-}
+
+
 
 
 if($permite_cadastro){
-    //query de inserção na tabela endereco
-    $query_endereco ="INSERT INTO endereco ( estado, cidade, bairro, cep, rua, numero, complemento) 
-                        VALUES (:estado, :cidade, :bairro, :cep, :rua, :numero, :complemento)";
+//query de inserção/edição na tabela endereco
+    if($id_locatario > 0){
+        //buscando ID Endereco  
+        $query_id_enredeco = 
+        "SELECT id_endereco 
+        FROMtario
+        WHERE id_locatario= :id_locatario;
+        ";
+
+        $result_id_endereco = $conn->prepare($query_id_enredeco);
+        $result_id_endereco->bindParam(':id_locatario', $id_locatario);
+        $result_id_endereco->execute();
+        $dado_id_loc = $result_id_endereco->fetch(PDO::FETCH_ASSOC);
+        $id_end = $dado_id_loc['id_endereco'];
+
+
+        $query_endereco = 
+        "UPDATE endereco 
+            SET  
+            estado = :estado
+            ,cidade = :cidade
+            ,bairro = :bairro
+            ,cep = :cep
+            ,rua = :rua
+            ,numero = :numero
+            ,complemento = :complemento
+            WHERE id_endereco = :id_endereco"; 
+        }else{
+            $query_endereco ="INSERT INTO endereco ( estado, cidade, bairro, cep, rua, numero, complemento) 
+            VALUES (:estado, :cidade, :bairro, :cep, :rua, :numero, :complemento)";
+        }
+
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_endereco = $conn->prepare($query_endereco);
@@ -77,11 +112,36 @@ if($permite_cadastro){
         $id_endereco = $dados_endereco['id_endereco'];
     }
 
-    //query de inserção na tabela usuário
-    $query_usuario = "INSERT INTO usuario (nome, email, usuario, senha, flag_bloqueado) 
-                        VALUES (:nome, :email, :usuario, :senha, :flag_bloqueado)";
+    //query de inserção/edição na tabela usuário
+    if($id_locatario > 0){
+        //buscando ID usuario
+        $query_id_usuario = 
+        "SELECT id_usuario
+        FROM locadora
+        WHERE id_locadora = :id_locadora;
+        ";
+        $result_id_usuario = $conn->prepare($query_id_usuario);
+        $result_id_usuario->bindParam(':id_locadora', $id_locadora);
+        $result_id_usuario->execute();
+        $dado_id_user = $result_id_usuario->fetch(PDO::FETCH_ASSOC);
+        $id_user = $dado_id_user['id_usuario'];
 
-    $flag_bloqueado = "N";
+        $query_usuario = 
+        "UPDATE usuario 
+            SET  
+            nome = :nome
+            ,email = :email
+            ,usuario = :usuario
+            ,senha = :senha
+            ,flag_bloqueado = :flag_bloqueado
+            WHERE id_usuario = :id_usuario"; 
+    }else{
+        $query_usuario = "INSERT INTO usuario (nome, email, usuario, senha, flag_bloqueado) 
+                            VALUES (:nome, :email, :usuario, :senha, :flag_bloqueado)";
+        $flag_bloqueado = "N";
+
+    }
+
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_usuario = $conn->prepare($query_usuario);
     $cad_usuario->bindParam(':nome', $dados['nome']);
@@ -105,9 +165,18 @@ if($permite_cadastro){
         $id_usuario = $dados_usuario['id_usuario'];
     }
 
-    //query de inserção na tabela locatario
+     //query de inserção/edição na tabela locatario
+    if($id_locatario > 0){
+         "UPDATE locadora 
+        SET  
+         cpf = :cpf
+        ,celular = :telefone
+        ,data_nascimento = :telefone
+        WHERE id_locadora = :id_locadora"; 
+    }else{
     $query_locatario = "INSERT INTO locatario (cpf, celular, data_nascimento, id_endereco, id_usuario) 
                         VALUES (:cpf, :celular, :data_nascimento, :id_endereco, :id_usuario)";
+    }
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL
     $cad_locatario = $conn->prepare($query_locatario);
@@ -121,10 +190,15 @@ if($permite_cadastro){
     $cad_locatario->execute();
 
     //caso insira com sucesso, retornará a mensagem validando.
-    if($cad_locatario->rowCount() == 1){
-        $retorna = "Usuário cadastrado com sucesso!";
+    
+    if($id_locatario <= 0){
+        if($cad_locatario->rowCount() == 1){
+            $retorna = "Usuário cadastrado com sucesso!";
+        }else{
+            $retorna = "Não foi possível cadastrar o usuário, verificar os campos.";
+        }  
     }else{
-        $retorna = "Não foi possível cadastrar o usuário, verificar os campos.";
-    }  
+        $retorna = "Locatario atualizado com sucesso!";
+    }
 }
 echo json_encode($retorna);
