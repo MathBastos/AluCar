@@ -49,10 +49,6 @@ if($id_locatario <= 0){
     }else{
         $permite_cadastro = true;
     }
-
-
-
-
 if($permite_cadastro){
 //query de inserção/edição na tabela endereco
     if($id_locatario > 0){

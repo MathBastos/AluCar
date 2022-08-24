@@ -26,3 +26,18 @@ loginLocatario.addEventListener("submit", async (e) => {
         alert("Oops, tem algo errado! Verifique suas credenciais.");
     }
 });
+
+function limpaId() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionalocatario.php?id_locatario=-1",
+        success: function (resultado) {
+            window.location.replace("../html/cadastrolocatario.html?id_locatario=-1");
+        },
+        error: function () {
+
+        }
+    });
+}

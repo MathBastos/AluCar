@@ -17,6 +17,7 @@ if($id_locadora <= 0){
     $pega_dados_endereco->bindParam(':numero', $dados['numero']);
     $pega_dados_endereco->execute();
 
+     //caso nao exista o endereço, ele fará a verificação de usuário repetido.
     $row = $pega_dados_endereco->rowCount();
     if($row == 0){
         //validação de usuario repetido, utilizando o usuario como parametro.
@@ -256,7 +257,6 @@ if($permite_cadastro){
     $row = $pega_dados_locadora->rowCount();
 
     if($id_locadora <= 0){
-        //$id_locadora = -1;
         if($row == 1){
             $dados_locadora = $pega_dados_locadora->fetch(PDO::FETCH_ASSOC);
             $id_locadora2 = $dados_locadora['id_locadora'];
