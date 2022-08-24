@@ -21,7 +21,7 @@ $(document).ready(function () {
                 html += "<td align='center'>" + resultado[i].id + "</td>";
                 html += "<td align='center'>" + resultado[i].nome + "</td>";
                 html += "<td align='center'>" + resultado[i].cpf + "</td>";
-                html += "<td align='center'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i> </td>";
+                html += "<td align='center'> <a onclick='editLocatario(" + resultado[i].id + ")'> <i class='fa fa-pencil-square-o' aria-hidden='true'></i></td>";
                 if (resultado[i].flag_bloqueado == "N"){
                     html += "<td align='center'> <a onclick='block(" + resultado[i].id_usuario + ")'><i class='fa fa-lock' aria-hidden='true'></i></a></td>";
                 }else{
@@ -68,4 +68,21 @@ function unblock(id){
             window.location.reload();
         }
     });
+}
+
+function editLocatario(id) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/redirecionaLocatario.php?id_locatario=" + id,
+        success: function (resultado) {
+            window.location.replace("../html/cadastroLocatario.html?id_locatario=" + id);
+        },
+        error: function () {
+
+        }
+    });
+
+
 }
