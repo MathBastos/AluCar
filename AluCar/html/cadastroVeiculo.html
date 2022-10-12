@@ -23,7 +23,7 @@
                     <h3></h3>
                 </div>
                 <div class="card-body">
-                    <form id="cadastroVeiculo">
+                    <form id="cadastroVeiculo" enctype="multipart/form-data">
                         <!-- Modelo -->
                         <div class="form-group">
                             <label class="col-md-2 control-label campos" for="modelo">Modelo <h11>*</h11></label>  
@@ -33,6 +33,10 @@
                             <label class="col-md-2 control-label campos" for="marca">Marca <h11>*</h11></label>  
                             <div class="col-md-4">
                                 <input id="marca" name="marca" placeholder="" class="form-control input-md campos" required="" type="text">
+                            </div>
+                            <label class="col-md-2 control-label campos" for="marca">Imagem <h11>*</h11></label>  
+                            <div class="col-md-4">
+                                <input id="files" name="files[]" placeholder="" class="form-control input-md campos" type="file" multiple>
                             </div>
                         </div>
 
