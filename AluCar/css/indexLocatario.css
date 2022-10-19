@@ -48,15 +48,15 @@ box-shadow: 0 0 0 0 !important;
 
 }
 
-.cadastrar_btn{
-margin-top: 20px;
-margin-left: 10px;
+.btn{
+/* margin-top: 20px; */
+/* margin-left: 10px; */
 color: black;
 background-color: #FFC312;
 width: 100px;
 }
 
-.cadastrar_btn:hover{
+.btn:hover{
 color: black;
 background-color: white;
 }
@@ -92,4 +92,13 @@ margin-top: 20px;
 
 #camposObrigatorios{
   color: #d11507;
+}
+
+.filtro{
+  margin-left: 65%;
+  color: black;
+}
+
+.table {
+  color: white;
 }

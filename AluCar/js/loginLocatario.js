@@ -20,7 +20,7 @@ loginLocatario.addEventListener("submit", async (e) => {
     } 
 
     if(resposta == "sucesso"){
-        alert("Logado com sucesso!");
+        window.location.replace("../html/indexLocatario.html");
     }
     if(resposta == "erro"){
         alert("Oops, tem algo errado! Verifique suas credenciais.");
