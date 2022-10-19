@@ -11,6 +11,7 @@ if($id_veiculo > 0){
     "UPDATE veiculo 
         SET  modelo = :modelo
             ,marca = :marca
+            ,img_name = :img_name
             ,imagem = :imagem
             ,ano = :ano
             ,cambio = :cambio
@@ -25,10 +26,12 @@ if($id_veiculo > 0){
             ,ar_condicionado = :ar_condicionado
             ,valor_hora = :valor_hora
             ,valor_seguro = :valor_seguro
+            ,flag_alugado = :flag_alugado
             ,id_locadora = :id_locadora
         WHERE id_veiculo = :id_veiculo"; 
 }else{
     $countfiles = count($_FILES['files']['name']);
+    $flag_alugado = "N";
 
     $query_veiculo = 
     "INSERT
@@ -50,6 +53,7 @@ if($id_veiculo > 0){
             ,ar_condicionado
             ,valor_hora
             ,valor_seguro
+            ,flag_alugado
             ,id_locadora
             ) 
         VALUES (
@@ -70,6 +74,7 @@ if($id_veiculo > 0){
         ,:ar_condicionado
         ,:valor_hora
         ,:valor_seguro
+        ,:flag_alugado
         ,:id_locadora
         )";
 }
@@ -117,6 +122,7 @@ for($i = 0; $i < $countfiles; $i++) {
                 $cad_veiculo->bindParam(':ar_condicionado', $dados['ar_condicionado']);
                 $cad_veiculo->bindParam(':valor_hora', $dados['valor_hora']);
                 $cad_veiculo->bindParam(':valor_seguro', $dados['valor_seguro']);
+                $cad_veiculo->bindParam(':flag_alugado', $flag_alugado);
                 $cad_veiculo->bindParam(':id_locadora', $_SESSION['id_locadora']);
             }
         }
