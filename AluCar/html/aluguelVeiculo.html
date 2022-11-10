@@ -6,10 +6,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
     <script src="../js/aluguelVeiculo.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/aluguelVeiculo.css">
     <link rel="stylesheet" href="../FontAwesome/css/font-awesome.min.css">
@@ -62,18 +65,104 @@
 
                 <!-- Listar Carros -->
                 <div class="card-text">
-                    <tr>
-                        <td>
-                            <span id="imagem"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="modelo" id="modelo">
-                        </td>
-                    </tr>
-                    
+                    <div class="conteiner">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div id="imagem" class="imagem"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6 class="h6">Modelo:</h6>
+                                        <input class="input" type="text" name="modelo" id="modelo" disabled>
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Marca:</h6>
+                                        <input class="input" type="text" name="marca" id="marca" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Ano:</h6>
+                                        <input class="input" type="text" name="ano" id="ano" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Cambio:</h6>
+                                        <input class="input" type="text" name="cambio" id="cambio" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Direção:</h6>
+                                        <input class="input" type="text" name="direcao" id="direcao" disabled>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="h6">Categoria:</h6>
+                                        <input class="input" type="text" name="categoria" id="categoria" disabled>
+                                    </div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Cor:</h6>
+                                        <input class="input" type="text" name="cor" id="cor" disabled>
+                                    </div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Motor:</h6>
+                                        <input class="input" type="text" name="motor" id="motor" disabled>
+                                    </div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <br>
+                                        <h6 class="h6">Portas:</h6>
+                                        <input class="input" type="text" name="portas" id="portas" disabled>
+                                    </div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <br>
+                                        <h6 class="h6">Passageiros:</h6>
+                                        <input class="input" type="text" name="qtd_passageiros" id="qtd_passageiros" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="h6">Ar Condicionado:</h6>
+                                        <input class="input" type="text" name="ar_condicionado" id="ar_condicionado" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                 </div>

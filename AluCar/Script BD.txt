@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Out-2022 às 20:56
+-- Tempo de geração: 11-Nov-2022 às 00:32
 -- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.4
+-- versão do PHP: 8.1.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -114,6 +114,8 @@ CREATE TABLE `locatario` (
   `cpf` varchar(20) NOT NULL,
   `celular` varchar(20) NOT NULL,
   `data_nascimento` date NOT NULL,
+  `moeda` double DEFAULT NULL,
+  `xp` double DEFAULT NULL,
   `id_endereco` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -122,8 +124,51 @@ CREATE TABLE `locatario` (
 -- Extraindo dados da tabela `locatario`
 --
 
-INSERT INTO `locatario` (`id_locatario`, `cpf`, `celular`, `data_nascimento`, `id_endereco`, `id_usuario`) VALUES
-(23, '10463476665', '4199548112', '2022-05-05', 15, 13);
+INSERT INTO `locatario` (`id_locatario`, `cpf`, `celular`, `data_nascimento`, `moeda`, `xp`, `id_endereco`, `id_usuario`) VALUES
+(23, '10463476665', '4199548112', '2022-05-05', NULL, NULL, 15, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `recompensa`
+--
+
+CREATE TABLE `recompensa` (
+  `id_recompensa` int(11) NOT NULL,
+  `divisao` varchar(30) DEFAULT NULL,
+  `porcentagem_desconto` int(11) DEFAULT NULL,
+  `valor_moeda` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `recompensa`
+--
+
+INSERT INTO `recompensa` (`id_recompensa`, `divisao`, `porcentagem_desconto`, `valor_moeda`) VALUES
+(1, 'bronze', 5, 350),
+(2, 'prata', 8, 350),
+(3, 'ouro', 11, 350),
+(4, 'platina', 15, 350),
+(5, 'diamante', 20, 350);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id_reserva` int(11) NOT NULL,
+  `data_inicio` date DEFAULT NULL,
+  `data_final` date DEFAULT NULL,
+  `valor` double DEFAULT NULL,
+  `valor_promocional` double DEFAULT NULL,
+  `xp` double NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `id_acessorio` int(11) NOT NULL,
+  `id_veiculo` int(11) NOT NULL,
+  `id_locatario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -229,6 +274,18 @@ ALTER TABLE `locatario`
   ADD KEY `fk_locatario_usuario1_idx` (`id_usuario`);
 
 --
+-- Índices para tabela `recompensa`
+--
+ALTER TABLE `recompensa`
+  ADD PRIMARY KEY (`id_recompensa`);
+
+--
+-- Índices para tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id_reserva`);
+
+--
 -- Índices para tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -274,6 +331,18 @@ ALTER TABLE `locadora_endereco`
 --
 ALTER TABLE `locatario`
   MODIFY `id_locatario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de tabela `recompensa`
+--
+ALTER TABLE `recompensa`
+  MODIFY `id_recompensa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

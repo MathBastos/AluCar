@@ -8,6 +8,23 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
+.h6{
+  font-weight: bold;
+  font-size: 100%;
+}
+
+.input{
+  color: white;
+  border: none;
+  background-color: transparent;
+  font-weight: 100;
+}
+
+.imagem {
+  margin-top: 25%;
+  margin-left: 10%;
+}
+
 .container{
 height: 100%;
 align-content: center;
