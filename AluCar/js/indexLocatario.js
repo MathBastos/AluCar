@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             for (var i = 0; i < resultado.length; i++) {
                 html += "<tr>";
-                html += "<td align='center'>" + resultado[i].imagem + "</td>";
+                html += "<td width='20%' align='center'>" + "<img width='100%' src=" + resultado[i].imagem + "></img>" + "</td>";
                 html += "<td align='center'>" + resultado[i].modelo + "</td>";
                 html += "<td align='center'>" + resultado[i].marca + "</td>";
                 html += "<td align='center'>" + resultado[i].valor + "</td>";
@@ -60,7 +60,7 @@ function filtrar (){
         success: function (resultado) {
             for (var i = 0; i < resultado.length; i++) {
                 html += "<tr>";
-                html += "<td align='center'>" + resultado[i].imagem + "</td>";
+                html += "<td width='20%' align='center'>" + "<img width='100%' src=" + resultado[i].imagem + "></img>" + "</td>";
                 html += "<td align='center'>" + resultado[i].modelo + "</td>";
                 html += "<td align='center'>" + resultado[i].marca + "</td>";
                 html += "<td align='center'>" + resultado[i].valor + "</td>";

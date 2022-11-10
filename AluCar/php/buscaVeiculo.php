@@ -25,6 +25,9 @@ if($id_veiculo > 0){
     $retorno["ar_condicionado"] = $row["ar_condicionado"];
     $retorno["valor_hora"] = $row["valor_hora"];
     $retorno["valor_seguro"] = $row["valor_seguro"];
+    $retorno["imagem"] = $row["imagem"];
+    $retorno["img_name"] = $row["img_name"];
+    $retorno["flag_alugado"] = $row["flag_alugado"];
 }else{
     $retorno["id_veiculo"] = "";
     $retorno["modelo"] = "";
@@ -42,5 +45,8 @@ if($id_veiculo > 0){
     $retorno["ar_condicionado"] = "";
     $retorno["valor_hora"] = "";
     $retorno["valor_seguro"] = "";
+    $retorno["imagem"] = "";
+    $retorno["flag_alugado"] = "";
+    $retorno["img_name"] = "";
 }
 echo json_encode($retorno);
