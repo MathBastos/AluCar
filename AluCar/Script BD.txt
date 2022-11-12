@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Nov-2022 às 00:32
+-- Tempo de geração: 12-Nov-2022 às 19:50
 -- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.5
+-- versão do PHP: 8.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -283,7 +283,10 @@ ALTER TABLE `recompensa`
 -- Índices para tabela `reserva`
 --
 ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id_reserva`);
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `id_acessorio` (`id_acessorio`,`id_veiculo`,`id_locatario`),
+  ADD KEY `fk_veiculo` (`id_veiculo`),
+  ADD KEY `fk_locatario` (`id_locatario`);
 
 --
 -- Índices para tabela `usuario`
@@ -385,6 +388,14 @@ ALTER TABLE `locadora_endereco`
 ALTER TABLE `locatario`
   ADD CONSTRAINT `fk_locatario_endereco1` FOREIGN KEY (`id_endereco`) REFERENCES `endereco` (`id_endereco`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_locatario_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `fk_acessorio` FOREIGN KEY (`id_acessorio`) REFERENCES `acessorio` (`id_acessorio`),
+  ADD CONSTRAINT `fk_locatario` FOREIGN KEY (`id_locatario`) REFERENCES `locatario` (`id_locatario`),
+  ADD CONSTRAINT `fk_veiculo` FOREIGN KEY (`id_veiculo`) REFERENCES `veiculo` (`id_veiculo`);
 
 --
 -- Limitadores para a tabela `veiculo`
