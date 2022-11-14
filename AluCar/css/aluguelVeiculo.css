@@ -8,6 +8,11 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
+.h2{
+  font-weight: bold;
+  margin-left: 25%;
+}
+
 .h6{
   font-weight: bold;
   font-size: 100%;
@@ -117,5 +122,7 @@ margin-top: 20px;
 }
 
 .table {
+  width: 75%;
+  margin-left: 10%;
   color: white;
 }

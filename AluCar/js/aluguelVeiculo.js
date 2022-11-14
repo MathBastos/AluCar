@@ -1,3 +1,41 @@
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: "",
+        url: "../php/controleAcessorio.php",
+        success: function (resultado) {
+
+            var html = "<table class='table' itemborder='1'>";
+
+            html += "<tr>";
+            html += "<td align='center'>" + "Selecionar" + "</td>";
+            html += "<td align='center'>" + "Nome" + "</td>";
+            html += "<td align='center'>" + "Valor" + "</td>";
+            html += "</tr>";
+
+            for (var i = 0; i < resultado.length; i++) {
+                html += "<tr>";
+                html += "<td align='center'>" + "<input type='checkbox' id='"+resultado[i].nome+"'>" + "</td>";
+                html += "<td align='center'>" + resultado[i].nome + "</td>";
+                html += "<td align='center'>" + resultado[i].valor + "</td>";
+                html += "</tr>";
+            }
+            html += "</table>";
+            html += "<br>";
+
+            $("#table").html(html);
+        }
+    });
+
+    const calendar = new VanillaCalendar({
+        HTMLElement: document.querySelector('.vanilla-calendar'),
+    });
+    calendar.init();
+
+});
+
+
 function buscaVeiculo(){
     $.ajax({
         type: "GET",
@@ -25,3 +63,5 @@ function buscaVeiculo(){
         }
     });
 }
+
+
