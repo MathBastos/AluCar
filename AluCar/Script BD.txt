@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Nov-2022 às 21:11
+-- Tempo de geração: 15-Nov-2022 às 20:54
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 7.4.29
 
@@ -163,13 +163,22 @@ CREATE TABLE `reserva` (
   `data_final` date DEFAULT NULL,
   `valor` double DEFAULT NULL,
   `valor_promocional` double DEFAULT NULL,
-  `xp` double NOT NULL,
+  `xp` double DEFAULT NULL,
   `Quilometragem` int(11) DEFAULT NULL,
-  `status` varchar(30) NOT NULL,
-  `id_acessorio` int(11) NOT NULL,
+  `status_carro` varchar(30) NOT NULL,
+  `id_acessorio` int(11) DEFAULT NULL,
   `id_veiculo` int(11) NOT NULL,
-  `id_locatario` int(11) NOT NULL
+  `id_locatario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `reserva`
+--
+
+INSERT INTO `reserva` (`id_reserva`, `data_inicio`, `data_final`, `valor`, `valor_promocional`, `xp`, `Quilometragem`, `status_carro`, `id_acessorio`, `id_veiculo`, `id_locatario`) VALUES
+(10, '2022-11-24', '2022-12-08', 15400, NULL, NULL, NULL, 'Reservado', 3, 3, 23),
+(11, '2022-11-16', '2022-11-23', 1400, NULL, NULL, NULL, 'Reservado', 4, 3, 23),
+(12, '2022-11-23', '2022-11-30', 7700, NULL, NULL, NULL, 'Reservado', 3, 3, 23);
 
 -- --------------------------------------------------------
 
@@ -218,9 +227,9 @@ CREATE TABLE `veiculo` (
   `portas` int(11) NOT NULL,
   `qtd_passageiros` int(11) NOT NULL,
   `ar_condicionado` varchar(30) NOT NULL,
-  `valor_hora` varchar(10) NOT NULL,
+  `valor_dia` varchar(10) NOT NULL,
   `valor_seguro` varchar(10) NOT NULL,
-  `flag_alugado` varchar(5) NOT NULL,
+  `flag_reservado` varchar(5) NOT NULL,
   `id_locadora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -228,8 +237,8 @@ CREATE TABLE `veiculo` (
 -- Extraindo dados da tabela `veiculo`
 --
 
-INSERT INTO `veiculo` (`id_veiculo`, `modelo`, `marca`, `img_name`, `imagem`, `ano`, `cambio`, `direcao`, `categoria`, `chassi`, `placa`, `cor`, `motor`, `portas`, `qtd_passageiros`, `ar_condicionado`, `valor_hora`, `valor_seguro`, `flag_alugado`, `id_locadora`) VALUES
-(3, 'Gol 1998', 'Volkswagen', 'gol1998.jpg', '../image/gol1998.jpg', 1998, 'manual', 'mecanica', 'sedan', 'TESTE', 'ABC-1234', 'Cinza', '1.0', 2, 5, 'n', '100', '10000', 'N', 4),
+INSERT INTO `veiculo` (`id_veiculo`, `modelo`, `marca`, `img_name`, `imagem`, `ano`, `cambio`, `direcao`, `categoria`, `chassi`, `placa`, `cor`, `motor`, `portas`, `qtd_passageiros`, `ar_condicionado`, `valor_dia`, `valor_seguro`, `flag_reservado`, `id_locadora`) VALUES
+(3, 'Gol 1998', 'Volkswagen', 'gol1998.jpg', '../image/gol1998.jpg', 1998, 'manual', 'mecanica', 'sedan', 'TESTE', 'ABC-1234', 'Cinza', '1.0', 2, 5, 'n', '100', '10000', 'S', 4),
 (4, 'Logan 2010', 'Renault', 'logan2010.jpg', '../image/logan2010.jpg', 2010, 'automatico', 'eletrica', 'sedan', 'TESTE', 'DEF-5678', 'Prata', '1.8', 4, 5, 's', '250', '30000', 'N', 4);
 
 --
@@ -346,7 +355,7 @@ ALTER TABLE `recompensa`
 -- AUTO_INCREMENT de tabela `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
