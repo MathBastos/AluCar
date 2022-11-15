@@ -1,3 +1,5 @@
+var veiculo;
+
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -16,7 +18,7 @@ $(document).ready(function () {
 
             for (var i = 0; i < resultado.length; i++) {
                 html += "<tr>";
-                html += "<td align='center'>" + "<input type='checkbox' id='"+resultado[i].nome+"'>" + "</td>";
+                html += "<td align='center'>" + "<input type='checkbox' id='" + resultado[i].nome +"' onclick='controleChek(this.id)'>" + "</td>";
                 html += "<td align='center'>" + resultado[i].nome + "</td>";
                 html += "<td align='center'>" + resultado[i].valor + "</td>";
                 html += "</tr>";
@@ -25,13 +27,39 @@ $(document).ready(function () {
             html += "<br>";
 
             $("#table").html(html);
+
+            
+
+            $("#calcular").click(function () {
+
+                var data_inicio = document.getElementById("data_inicio").value;
+                var data_fim = document.getElementById("data_fim").value;
+
+                var dt1 = new Date(data_inicio+'T00:00:00Z');
+                var dt2 = new Date(data_fim+'T00:00:00Z');
+
+                var dif = dt2.getTime() - dt1.getTime();
+
+                // To calculate the no. of days between two dates
+                var dif_dia = dif / (1000 * 3600 * 24);
+                
+                var totalReserva = veiculo.valor_dia * dif_dia;
+
+                for (var i = 0; i < resultado.length; i++) {
+                    var element = document.getElementById(resultado[i].nome);
+                    if (element.classList.contains("checked")) {
+                        totalReserva += resultado[i].valor * dif_dia
+                    }
+                }
+
+                var html = totalReserva
+                $("#valorTotal").html(html);
+
+
+                console.log(totalReserva);
+            });
         }
     });
-
-    const calendar = new VanillaCalendar({
-        HTMLElement: document.querySelector('.vanilla-calendar'),
-    });
-    calendar.init();
 
 });
 
@@ -58,10 +86,20 @@ function buscaVeiculo(){
             var html = "<img src=" + resultado.imagem + " width='100%' height='50%'/>";
             $("#imagem").html(html);
 
+            veiculo = resultado;
+
         },
         error: function (){
         }
     });
 }
 
-
+function controleChek(clicked_id){
+    
+    var element = document.getElementById(clicked_id);
+    if (element.classList.contains("checked")) {
+        element.classList.remove("checked");
+    }else{
+        element.classList.add("checked");
+    }    
+}

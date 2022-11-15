@@ -23,7 +23,7 @@ if($id_veiculo > 0){
     $retorno["portas"] = $row["portas"];
     $retorno["qtd_passageiros"] = $row["qtd_passageiros"];
     $retorno["ar_condicionado"] = $row["ar_condicionado"];
-    $retorno["valor_hora"] = $row["valor_hora"];
+    $retorno["valor_dia"] = $row["valor_hora"];
     $retorno["valor_seguro"] = $row["valor_seguro"];
     $retorno["imagem"] = $row["imagem"];
     $retorno["img_name"] = $row["img_name"];
