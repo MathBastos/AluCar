@@ -23,11 +23,11 @@ if($id_veiculo > 0){
     $retorno["portas"] = $row["portas"];
     $retorno["qtd_passageiros"] = $row["qtd_passageiros"];
     $retorno["ar_condicionado"] = $row["ar_condicionado"];
-    $retorno["valor_dia"] = $row["valor_hora"];
+    $retorno["valor_dia"] = $row["valor_dia"];
     $retorno["valor_seguro"] = $row["valor_seguro"];
     $retorno["imagem"] = $row["imagem"];
     $retorno["img_name"] = $row["img_name"];
-    $retorno["flag_alugado"] = $row["flag_alugado"];
+    $retorno["flag_reservado"] = $row["flag_reservado"];
 }else{
     $retorno["id_veiculo"] = "";
     $retorno["modelo"] = "";
@@ -43,10 +43,10 @@ if($id_veiculo > 0){
     $retorno["portas"] = "";
     $retorno["qtd_passageiros"] = "";
     $retorno["ar_condicionado"] = "";
-    $retorno["valor_hora"] = "";
+    $retorno["valor_dia"] = "";
     $retorno["valor_seguro"] = "";
     $retorno["imagem"] = "";
-    $retorno["flag_alugado"] = "";
+    $retorno["flag_reservado"] = "";
     $retorno["img_name"] = "";
 }
 echo json_encode($retorno);

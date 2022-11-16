@@ -8,7 +8,7 @@ function editaAcessorio(){
             document.getElementById("nome").value = resultado.nome; 
             document.getElementById("descricao").value = resultado.descricao; 
             document.getElementById("qtd_acessorio").value = resultado.quantidade; 
-            document.getElementById("valor_acessorio").value = resultado.valor; 
+            document.getElementById("valor_acessorio").value = resultado.valor;
         },
         error: function (){
             

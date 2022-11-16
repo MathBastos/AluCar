@@ -20,7 +20,9 @@ if($id_locatario > 0){
     ,cidade
     ,complemento
     ,usuario
-    ,senha 
+    ,senha
+    ,moeda
+    ,xp
     FROM usuario 
         INNER JOIN locatario 
             ON usuario.id_usuario = locatario.id_usuario 
@@ -50,6 +52,8 @@ if($id_locatario > 0){
     $retorno["cidade"] = $row['cidade'];
     $retorno["complemento"] = $row["complemento"];
     $retorno["usuario"] = $row["usuario"];
+    $retorno["moeda"] = $row["moeda"];
+    $retorno["xp"] = $row["xp"];
     
 
 }else{
@@ -68,5 +72,7 @@ if($id_locatario > 0){
     $retorno["complemento"] = "";
     $retorno["usuario"] = "";
     $retorno["senha"] = "";
+    $retorno["moeda"] = "";
+    $retorno["xp"] = "";
 }
 echo json_encode($retorno);

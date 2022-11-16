@@ -34,10 +34,7 @@
                             <div class="col-md-4">
                                 <input id="marca" name="marca" placeholder="" class="form-control input-md campos" required="" type="text">
                             </div>
-                            <label class="col-md-2 control-label campos" for="marca">Imagem <h11>*</h11></label>  
-                            <div class="col-md-4">
-                                <input id="files" name="files[]" placeholder="" class="form-control input-md campos" type="file" multiple>
-                            </div>
+                            
                         </div>
 
                         <!-- Categoria / Cor / Ano -->
@@ -127,17 +124,29 @@
                         
                         <!-- Valores-->
                         <div class="form-group">
-                            <label class="col-md-2 control-label campos" for="valor_hora">Valor Hora <h11>*</h11></label>  
+                            <label class="col-md-2 control-label campos" for="valor_dia">Valor Dia <h11>*</h11></label>  
                             <div class="col-md-2">
-                                <input id="valor_hora" name="valor_hora" placeholder="" class="form-control input-md campos" required="" type="text">
+                                <input id="valor_dia" name="valor_dia" placeholder="" class="form-control input-md campos" required="" type="text">
                             </div>
+
+                            <label class="col-md-4 control-label campos inv" for="invisivel"></label>
+
                             <label class="col-md-2 control-label campos" for="valor_seguro">Valor Seguro <h11>*</h11></label>  
                             <div class="col-md-2">
                                 <input id="valor_seguro" name="valor_seguro" placeholder="" class="form-control input-md campos" required="" type="text">
                             </div>
                         </div>
-                    
+                            
+                        <!-- Imagem -->
+                        <div class="form-group">
+
+                            <label class="col-md-2 control-label campos" for="marca">Imagem <h11>*</h11></label>
+                            <div class="col-md-4">
+                                <input id="files" name="files[]" placeholder="" class="form-control input-md campos" type="file" multiple>
+                            </div>
+
                         </div>
+                    </div>
                         <div class="card-body">
                             <a href="indexLocadora.html"><input type="button" value="Voltar" id="btnVoltar" class="btn voltar_btn"></a>
                             <div class="col-md-8"></div>

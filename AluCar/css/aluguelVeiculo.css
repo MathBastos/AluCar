@@ -72,8 +72,6 @@ box-shadow: 0 0 0 0 !important;
 }
 
 .btn{
-/* margin-top: 20px; */
-/* margin-left: 10px; */
 color: black;
 background-color: #FFC312;
 width: 100px;
@@ -84,17 +82,12 @@ color: black;
 background-color: white;
 }
 
-.voltar_btn{
-margin-top: 20px;
-margin-left: 10px;
+#reservar_btn{
+margin-top: 10%;
 color: black;
 background-color: #FFC312;
-width: 100px;
-}
-
-.voltar_btn:hover{
-color: black;
-background-color: white;
+width: 200px;
+height: 50px;
 }
 
 .links{

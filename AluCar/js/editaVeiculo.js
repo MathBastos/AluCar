@@ -18,7 +18,7 @@ function editaVeiculo(){
             document.getElementById("portas").value = resultado.portas;
             document.getElementById("qtd_passageiros").value = resultado.qtd_passageiros;
             document.getElementById("ar_condicionado").value = resultado.ar_condicionado;
-            document.getElementById("valor_hora").value = resultado.valor_hora;
+            document.getElementById("valor_dia").value = resultado.valor_dia;
             document.getElementById("valor_seguro").value = resultado.valor_seguro;
         },
         error: function (){

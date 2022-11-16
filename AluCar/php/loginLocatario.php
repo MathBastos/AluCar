@@ -1,5 +1,6 @@
 <?php
 include_once "conexao.php";
+session_start();
 
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);

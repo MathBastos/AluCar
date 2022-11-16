@@ -15,11 +15,11 @@ align-content: center;
 }
 
 .card{
+height: 100%;
+width: 1500px !important;
 margin-top: auto;
 margin-bottom: auto;
-width: 750px;
 background-color: rgba(0,0,0,0.5) !important;
-color: white;
 }
 
 .card-tittle h3{
@@ -32,8 +32,9 @@ color: white;
 color: white;
 }
 
-.card-body h3 {
-  text-align: center;
+.card-table{
+    color: white;
+    text-align: center;
 }
 
 .input-group-prepend span{
@@ -50,11 +51,10 @@ box-shadow: 0 0 0 0 !important;
 }
 
 .cadastrar_btn{
-margin-top: 20px;
-margin-left: 10px;
 color: black;
 background-color: #FFC312;
-width: 100px;
+width: 150px;
+height: 50px;
 }
 
 .cadastrar_btn:hover{
@@ -63,11 +63,13 @@ background-color: white;
 }
 
 .voltar_btn{
-margin-top: 20px;
-margin-left: 10px;
+margin-top: 2%;
+margin-left: 2%;
+margin-right: 500px;
 color: black;
 background-color: #FFC312;
-width: 100px;
+width: 150px;
+height: 50px;
 }
 
 .voltar_btn:hover{
@@ -87,10 +89,6 @@ margin-left: 4px;
 margin-top: 20px;
 }
 
-.inv{
-  visibility: hidden;
-}
-
-#camposObrigatorios{
-  color: #d11507;
+.table{
+color: white;
 }

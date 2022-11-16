@@ -2,7 +2,7 @@
 include_once "conexao.php";
 
 
-$query = "SELECT * FROM veiculo";
+$query = "SELECT * FROM veiculo WHERE flag_reservado='N'";
 $resultado = $conn->prepare($query);
 $resultado->execute();
 $contador = 0;
@@ -22,7 +22,7 @@ while($row = $resultado->fetch(PDO::FETCH_ASSOC)){
     $retorno[$contador]["imagem"] = $row["imagem"];
     $retorno[$contador]["modelo"] = $row["modelo"];
     $retorno[$contador]["marca"] = $row['marca'];
-    $retorno[$contador]["valor"] = $row['valor_hora'];
+    $retorno[$contador]["valor"] = $row['valor_dia'];
     $retorno[$contador]["cor"] = $row['cor'];
 
     $contador++;

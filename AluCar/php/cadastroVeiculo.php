@@ -5,6 +5,7 @@ $id_veiculo = $_SESSION["id_veiculo"];
 $time = time();
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$countfiles = count($_FILES['files']['name']);
 
 if($id_veiculo > 0){
     $query_veiculo = 
@@ -24,15 +25,11 @@ if($id_veiculo > 0){
             ,portas = :portas
             ,qtd_passageiros = :qtd_passageiros
             ,ar_condicionado = :ar_condicionado
-            ,valor_hora = :valor_hora
+            ,valor_dia = :valor_dia
             ,valor_seguro = :valor_seguro
-            ,flag_alugado = :flag_alugado
-            ,id_locadora = :id_locadora
         WHERE id_veiculo = :id_veiculo"; 
 }else{
-    $countfiles = count($_FILES['files']['name']);
-    $flag_alugado = "N";
-
+    
     $query_veiculo = 
     "INSERT
         INTO veiculo(
@@ -51,9 +48,9 @@ if($id_veiculo > 0){
             ,portas
             ,qtd_passageiros
             ,ar_condicionado
-            ,valor_hora
+            ,valor_dia
             ,valor_seguro
-            ,flag_alugado
+            ,flag_reservado
             ,id_locadora
             ) 
         VALUES (
@@ -72,9 +69,9 @@ if($id_veiculo > 0){
         ,:portas
         ,:qtd_passageiros
         ,:ar_condicionado
-        ,:valor_hora
+        ,:valor_dia
         ,:valor_seguro
-        ,:flag_alugado
+        ,'N'
         ,:id_locadora
         )";
 }
@@ -120,9 +117,8 @@ for($i = 0; $i < $countfiles; $i++) {
                 $cad_veiculo->bindParam(':portas', $dados['portas']);
                 $cad_veiculo->bindParam(':qtd_passageiros', $dados['qtd_passageiros']);
                 $cad_veiculo->bindParam(':ar_condicionado', $dados['ar_condicionado']);
-                $cad_veiculo->bindParam(':valor_hora', $dados['valor_hora']);
+                $cad_veiculo->bindParam(':valor_dia', $dados['valor_dia']);
                 $cad_veiculo->bindParam(':valor_seguro', $dados['valor_seguro']);
-                $cad_veiculo->bindParam(':flag_alugado', $flag_alugado);
                 $cad_veiculo->bindParam(':id_locadora', $_SESSION['id_locadora']);
             }
         }

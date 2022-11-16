@@ -183,8 +183,25 @@ if($permite_cadastro){
         ,data_nascimento = :data_nascimento
         WHERE id_locatario = :id_locatario"; 
     }else{
-    $query_locatario = "INSERT INTO locatario (cpf, celular, data_nascimento, id_endereco, id_usuario) 
-                        VALUES (:cpf, :celular, :data_nascimento, :id_endereco, :id_usuario)";
+    $query_locatario = 
+    "INSERT INTO locatario (
+        cpf
+        , celular
+        , data_nascimento
+        , id_endereco
+        , id_usuario
+        , xp
+        , moeda
+        ) 
+        VALUES (
+              :cpf
+            , :celular
+            , :data_nascimento
+            , :id_endereco
+            , :id_usuario
+            , 0
+            , 0
+            )";
     }
 
     //bindando os valores do form nas variaveis para utilizar a inserção SQL

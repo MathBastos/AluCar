@@ -12,5 +12,5 @@ cadAcessorio.addEventListener("submit", async (e) => {
     
     const resposta = await dados.json();
     alert(resposta);
-    
+    location.href = 'indexLocadora.html' 
 });
